@@ -1,0 +1,449 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- En-tête avec titre et bouton d'ajout -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Gestion des Équipements</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">
+                <i class="fas fa-plus me-1"></i> Ajouter un équipement
+            </button>
+        </div>
+    </div>
+
+    <!-- Filtres et recherche -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold">Recherche et filtres</h6>
+                <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+                    <i class="fas fa-filter"></i> Filtres
+                </button>
+            </div>
+        </div>
+        <div class="collapse" id="filtersCollapse">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="filterStatus" class="form-label small text-muted mb-1">Statut</label>
+                        <select class="form-select form-select-sm" id="filterStatus">
+                            <option value="">Tous les statuts</option>
+                            <option value="En stock">En stock</option>
+                            <option value="En service">En service</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Hors service">Hors service</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterLocation" class="form-label small text-muted mb-1">Localisation</label>
+                        <select class="form-select form-select-sm" id="filterLocation">
+                            <option value="">Toutes les localisations</option>
+                            <!-- Les options seront chargées dynamiquement -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterModel" class="form-label small text-muted mb-1">Modèle</label>
+                        <input type="text" class="form-control form-control-sm" id="filterModel" placeholder="Rechercher par modèle">
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-secondary me-2" id="resetFilters">
+                            <i class="fas fa-undo me-1"></i> Réinitialiser
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" id="applyFilters">
+                            <i class="fas fa-search me-1"></i> Appliquer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des équipements -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+            <h6 class="m-0 font-weight-bold mb-2 mb-md-0">Liste des équipements</h6>
+            <div class="input-group" style="max-width: 100%; width: 300px;">
+                <input type="text" class="form-control form-control-sm" id="searchInput" 
+                       placeholder="Rechercher un équipement..." aria-label="Rechercher un équipement">
+                <button class="btn btn-outline-secondary btn-sm" type="button" id="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="equipmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Modèle</th>
+                            <th>N° de série</th>
+                            <th>Code-barres</th>
+                            <th>Statut</th>
+                            <th>Localisation</th>
+                            <th>Date d'ajout</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les lignes seront ajoutées dynamiquement par JavaScript -->
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Chargement...</span>
+                                </div>
+                                <p class="mt-2">Chargement des équipements...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Navigation des pages" class="mt-4">
+                <ul class="pagination justify-content-center" id="pagination">
+                    <!-- La pagination sera générée dynamiquement par JavaScript -->
+                </ul>
+            </nav>
+        </div>
+        <div class="card-footer text-end">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-download me-1"></i> Exporter
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" id="exportCSV">CSV</a></li>
+                    <li><a class="dropdown-item" href="#" id="exportExcel">Excel</a></li>
+                    <li><a class="dropdown-item" href="#" id="exportPDF">PDF</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout d'équipement -->
+<div class="modal fade" id="addEquipmentModal" tabindex="-1" aria-labelledby="addEquipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEquipmentModalLabel">Ajouter un nouvel équipement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEquipmentForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="equipmentModel" class="form-label">Modèle *</label>
+                            <input type="text" class="form-control" id="equipmentModel" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="equipmentSerial" class="form-label">Numéro de série</label>
+                            <input type="text" class="form-control" id="equipmentSerial">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="equipmentBarcode" class="form-label">Code-barres</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="equipmentBarcode">
+                                <button class="btn btn-outline-secondary" type="button" id="generateBarcode">
+                                    <i class="fas fa-barcode"></i> Générer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="equipmentStatus" class="form-label">Statut *</label>
+                            <select class="form-select" id="equipmentStatus" required>
+                                <option value="">Sélectionner un statut...</option>
+                                <option value="En stock">En stock</option>
+                                <option value="En service">En service</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Hors service">Hors service</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="equipmentLocation" class="form-label">Localisation</label>
+                            <input type="text" class="form-control" id="equipmentLocation">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="equipmentPurchaseDate" class="form-label">Date d'acquisition</label>
+                            <input type="date" class="form-control" id="equipmentPurchaseDate">
+                        </div>
+                        <div class="col-12">
+                            <label for="equipmentNotes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="equipmentNotes" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="saveEquipment">
+                    <i class="fas fa-save me-1"></i> Enregistrer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cet équipement ? Cette action est irréversible.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Ce script sera chargé après le chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialisation des gestionnaires d'événements
+        initializeEventListeners();
+        
+        // Chargement initial des équipements
+        loadEquipments();
+    });
+    
+    function initializeEventListeners() {
+        // Gestionnaires pour les filtres
+        document.getElementById('applyFilters').addEventListener('click', loadEquipments);
+        document.getElementById('resetFilters').addEventListener('click', resetFilters);
+        document.getElementById('searchButton').addEventListener('click', loadEquipments);
+        
+        // Gestionnaire pour la touche Entrée dans la recherche
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadEquipments();
+            }
+        });
+        
+        // Gestionnaire pour le bouton d'ajout
+        document.getElementById('saveEquipment').addEventListener('click', saveEquipment);
+        
+        // Gestionnaire pour la génération de code-barres
+        document.getElementById('generateBarcode').addEventListener('click', generateBarcode);
+    }
+    
+    function loadEquipments(page = 1) {
+        // Récupérer les valeurs des filtres
+        const filters = {
+            status: document.getElementById('filterStatus').value,
+            location: document.getElementById('filterLocation').value,
+            model: document.getElementById('filterModel').value,
+            search: document.getElementById('searchInput').value,
+            page: page,
+            pageSize: 10 // Nombre d'éléments par page
+        };
+        
+        // Afficher l'indicateur de chargement
+        const tbody = document.querySelector('#equipmentsTable tbody');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <p class="mt-2">Chargement des équipements...</p>
+                </td>
+            </tr>`;
+        
+        // Ici, vous devrez implémenter l'appel à votre API pour récupérer les équipements
+        // Exemple avec fetch :
+        /*
+        fetch('/api/equipments/?' + new URLSearchParams(filters))
+            .then(response => response.json())
+            .then(data => {
+                updateEquipmentTable(data);
+                updatePagination(data);
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des équipements:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center text-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Une erreur est survenue lors du chargement des équipements.
+                        </td>
+                    </tr>`;
+            });
+        */
+    }
+    
+    function updateEquipmentTable(data) {
+        const tbody = document.querySelector('#equipmentsTable tbody');
+        
+        if (!data || !data.results || data.results.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center text-muted">
+                        Aucun équipement trouvé.
+                    </td>
+                </tr>`;
+            return;
+        }
+        
+        // Vider le tableau
+        tbody.innerHTML = '';
+        
+        // Ajouter chaque équipement au tableau
+        data.results.forEach(equipment => {
+            const row = document.createElement('tr');
+            
+            // Définir une classe de badge Bootstrap en fonction du statut
+            let statusClass = 'bg-secondary';
+            switch(equipment.status) {
+                case 'En stock': statusClass = 'bg-primary'; break;
+                case 'En service': statusClass = 'bg-success'; break;
+                case 'Maintenance': statusClass = 'bg-warning'; break;
+                case 'Hors service': statusClass = 'bg-danger'; break;
+            }
+            
+            // Formatage de la date
+            const formattedDate = equipment.creation_date ? 
+                new Date(equipment.creation_date).toLocaleDateString('fr-FR') : 'N/A';
+            
+            row.innerHTML = `
+                <td>${equipment.model || 'N/A'}</td>
+                <td>${equipment.serial || 'N/A'}</td>
+                <td>${equipment.barcode || 'N/A'}</td>
+                <td><span class="badge ${statusClass}">${equipment.status || 'Inconnu'}</span></td>
+                <td>${equipment.location || 'N/A'}</td>
+                <td>${formattedDate}</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-outline-primary me-1" onclick="viewEquipment('${equipment._id}')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary me-1" onclick="editEquipment('${equipment._id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('${equipment._id}')">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>`;
+                
+            tbody.appendChild(row);
+        });
+    }
+    
+    function updatePagination(data) {
+        const pagination = document.getElementById('pagination');
+        if (!pagination) return;
+        
+        // Vider la pagination existante
+        pagination.innerHTML = '';
+        
+        // Si une seule page, ne pas afficher la pagination
+        if (!data.total_pages || data.total_pages <= 1) {
+            return;
+        }
+        
+        const currentPage = data.current_page || 1;
+        const totalPages = data.total_pages || 1;
+        
+        // Bouton Précédent
+        const prevLi = document.createElement('li');
+        prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prevLi.innerHTML = `
+            <a class="page-link" href="#" aria-label="Précédent" ${currentPage === 1 ? 'tabindex="-1"' : ''}>
+                <span aria-hidden="true">&laquo;</span>
+            </a>`;
+        prevLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage > 1) loadEquipments(currentPage - 1);
+        });
+        pagination.appendChild(prevLi);
+        
+        // Numéros de page
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLi = document.createElement('li');
+            pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            
+            if (i !== currentPage) {
+                pageLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadEquipments(i);
+                });
+            }
+            
+            pagination.appendChild(pageLi);
+        }
+        
+        // Bouton Suivant
+        const nextLi = document.createElement('li');
+        nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextLi.innerHTML = `
+            <a class="page-link" href="#" aria-label="Suivant" ${currentPage === totalPages ? 'tabindex="-1"' : ''}>
+                <span aria-hidden="true">&raquo;</span>
+            </a>`;
+        nextLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) loadEquipments(currentPage + 1);
+        });
+        pagination.appendChild(nextLi);
+    }
+    
+    function resetFilters() {
+        document.getElementById('filterStatus').value = '';
+        document.getElementById('filterLocation').value = '';
+        document.getElementById('filterModel').value = '';
+        document.getElementById('searchInput').value = '';
+        loadEquipments();
+    }
+    
+    function saveEquipment() {
+        // Implémentation de la sauvegarde d'un nouvel équipement
+        // À compléter avec votre logique de sauvegarde
+        alert('Fonctionnalité de sauvegarde à implémenter');
+    }
+    
+    function generateBarcode() {
+        // Générer un code-barres aléatoire (exemple simplifié)
+        const barcode = 'DEM-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+        document.getElementById('equipmentBarcode').value = barcode;
+    }
+    
+    function viewEquipment(id) {
+        // Rediriger vers la page de détail de l'équipement
+        window.location.href = `/equipements/${id}`;
+    }
+    
+    function editEquipment(id) {
+        // Ouvrir le modal d'édition avec les données de l'équipement
+        // À implémenter
+        alert(`Édition de l'équipement ${id} - À implémenter`);
+    }
+    
+    function confirmDelete(id) {
+        // Afficher la modal de confirmation
+        const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        
+        // Définir l'ID de l'équipement à supprimer
+        document.getElementById('confirmDelete').onclick = function() {
+            deleteEquipment(id);
+            modal.hide();
+        };
+        
+        modal.show();
+    }
+    
+    function deleteEquipment(id) {
+        // Implémentation de la suppression d'un équipement
+        // À compléter avec votre logique de suppression
+        console.log(`Suppression de l'équipement ${id}`);
+        // Rafraîchir la liste après suppression
+        loadEquipments();
+    }
+</script>
+{% endblock %}

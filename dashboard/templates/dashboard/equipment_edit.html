@@ -1,0 +1,296 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- En-tête avec bouton de retour et actions -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a href="{% url 'equipment-detail' pk=equipment._id %}" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i> Annuler et revenir aux détails
+            </a>
+            <h1 class="h3 d-inline-block ms-3 mb-0">
+                {% if form.instance._id %}
+                    Modifier l'équipement
+                {% else %}
+                    Ajouter un nouvel équipement
+                {% endif %}
+            </h1>
+        </div>
+        <div>
+            <button type="submit" form="equipmentForm" class="btn btn-primary btn-sm">
+                <i class="fas fa-save me-1"></i> Enregistrer
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <form id="equipmentForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Section Informations générales -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">
+                                <i class="fas fa-info-circle me-2"></i>Informations générales
+                            </h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="model" class="form-label">Modèle *</label>
+                                        <input type="text" class="form-control" id="model" name="model" 
+                                               value="{{ equipment.model|default:'' }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="brand" class="form-label">Marque</label>
+                                        <input type="text" class="form-control" id="brand" name="brand"
+                                               value="{{ equipment.brand|default:'' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="serial" class="form-label">Numéro de série</label>
+                                        <input type="text" class="form-control" id="serial" name="serial"
+                                               value="{{ equipment.serial|default:'' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="barcode" class="form-label">Code-barres</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="barcode" name="barcode"
+                                                   value="{{ equipment.barcode|default:'' }}">
+                                            <button class="btn btn-outline-secondary" type="button" id="generateBarcode">
+                                                <i class="fas fa-barcode"></i> Générer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section Statut et localisation -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">
+                                <i class="fas fa-map-marker-alt me-2"></i>Statut et localisation
+                            </h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="status" class="form-label">Statut *</label>
+                                        <select class="form-select" id="status" name="status" required>
+                                            <option value="" disabled>-- Sélectionner un statut --</option>
+                                            <option value="En stock" {% if equipment.status == 'En stock' %}selected{% endif %}>En stock</option>
+                                            <option value="En service" {% if equipment.status == 'En service' %}selected{% endif %}>En service</option>
+                                            <option value="Maintenance" {% if equipment.status == 'Maintenance' %}selected{% endif %}>Maintenance</option>
+                                            <option value="Hors service" {% if equipment.status == 'Hors service' %}selected{% endif %}>Hors service</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="location" class="form-label">Localisation</label>
+                                        <input type="text" class="form-control" id="location" name="location"
+                                               value="{{ equipment.location|default:'' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section Spécifications techniques -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">
+                                <i class="fas fa-microchip me-2"></i>Spécifications techniques
+                            </h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="family" class="form-label">Famille</label>
+                                        <select class="form-select" id="family" name="family">
+                                            <option value="">-- Sélectionner une famille --</option>
+                                            {% for family in families %}
+                                                <option value="{{ family }}" 
+                                                    {% if equipment.family == family %}selected{% endif %}>
+                                                    {{ family }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="subfamily" class="form-label">Sous-famille</label>
+                                        <select class="form-select" id="subfamily" name="subfamily">
+                                            <option value="">-- Sélectionner une sous-famille --</option>
+                                            {% for subfamily in subfamilies %}
+                                                <option value="{{ subfamily }}" 
+                                                    {% if equipment.subfamily == subfamily %}selected{% endif %}>
+                                                    {{ subfamily }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inventory_number" class="form-label">Numéro d'inventaire</label>
+                                        <input type="text" class="form-control" id="inventory_number" name="inventory_number"
+                                               value="{{ equipment.inventory_number|default:'' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="purchase_value" class="form-label">Valeur d'acquisition (MAD)</label>
+                                        <input type="number" step="0.01" class="form-control" id="purchase_value" 
+                                               name="purchase_value" value="{{ equipment.purchase_value|default:'0' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section Notes -->
+                        <div class="mb-3">
+                            <h5 class="mb-3 border-bottom pb-2">
+                                <i class="fas fa-sticky-note me-2"></i>Notes et commentaires
+                            </h5>
+                            <div class="form-group">
+                                <textarea class="form-control" id="notes" name="notes" rows="4">{{ equipment.notes|default:'' }}</textarea>
+                                <div class="form-text">Ajoutez des notes ou des commentaires concernant cet équipement.</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Colonne latérale -->
+        <div class="col-lg-4">
+            <!-- Carte d'information -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Informations d'audit</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Date de création</h6>
+                        <p class="mb-0">{{ equipment.creation_date|date:"d/m/Y H:i"|default:"Non spécifiée" }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Dernière modification</h6>
+                        <p class="mb-0">{{ equipment.updated_at|date:"d/m/Y H:i"|default:"Jamais modifié" }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Créé par</h6>
+                        <p class="mb-0">{{ equipment.created_by|default:"Système" }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Dernière modification par</h6>
+                        <p class="mb-0">{{ equipment.updated_by|default:"Inconnu" }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carte d'actions rapides -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Actions rapides</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button type="submit" form="equipmentForm" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Enregistrer les modifications
+                        </button>
+                        {% if equipment._id %}
+                        <a href="{% url 'equipment-detail' pk=equipment._id %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i> Annuler
+                        </a>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                            <i class="fas fa-trash-alt me-1"></i> Supprimer cet équipement
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+{% if equipment._id %}
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer définitivement cet équipement ?</p>
+                <p class="text-danger fw-bold">Cette action est irréversible et supprimera toutes les données associées à cet équipement.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form action="{% url 'equipment-delete' pk=equipment._id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-1"></i> Supprimer définitivement
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Générer un code-barres aléatoire
+    document.getElementById('generateBarcode').addEventListener('click', function() {
+        const barcode = 'DEM-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+        document.getElementById('barcode').value = barcode;
+    });
+    
+    // Chargement dynamique des sous-familles en fonction de la famille sélectionnée
+    document.getElementById('family').addEventListener('change', function() {
+        const family = this.value;
+        const subfamilySelect = document.getElementById('subfamily');
+        
+        // Réinitialiser les options
+        subfamilySelect.innerHTML = '<option value="">-- Sélectionner une sous-famille --</option>';
+        
+        if (!family) return;
+        
+        // Simuler un chargement dynamique (à remplacer par un appel API réel)
+        // Ceci est un exemple avec des données statiques
+        const subfamilies = {
+            'Informatique': ['Ordinateur portable', 'Ordinateur de bureau', 'Tablette', 'Smartphone'],
+            'Réseau': ['Routeur', 'Switch', 'Point d\'accès', 'Modem'],
+            'Périphériques': ['Écran', 'Clavier', 'Souris', 'Imprimante']
+        };
+        
+        if (subfamilies[family]) {
+            subfamilies[family].forEach(function(subfamily) {
+                const option = document.createElement('option');
+                option.value = subfamily;
+                option.textContent = subfamily;
+                subfamilySelect.appendChild(option);
+            });
+        }
+    });
+    
+    // Initialisation des tooltips Bootstrap
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+{% endblock %}

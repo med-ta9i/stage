@@ -1,0 +1,262 @@
+/* Styles généraux */
+body {
+    font-size: 0.9rem;
+    background-color: #f8f9fa;
+}
+
+/* Barre latérale */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #343a40 !important;
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+/* Styles pour la barre latérale sur les petits écrans */
+@media (max-width: 767.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    /* Masquer le contenu principal lorsque le menu est ouvert sur mobile */
+    .sidebar.show + main {
+        margin-left: 250px;
+    }
+    
+    /* Ajuster la marge du contenu principal pour les petits écrans */
+    main {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    padding: 0.75rem 1rem;
+    margin: 0.2rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.sidebar .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    color: #fff;
+    background-color: #0d6efd;
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Contenu principal */
+main {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+/* Cartes de statistiques */
+.stat-card {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.2s;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .card-body {
+    padding: 1.25rem;
+}
+
+.stat-card .card-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .card-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card .card-change {
+    font-size: 0.8rem;
+}
+
+.stat-card .card-change.positive {
+    color: #198754;
+}
+
+.stat-card .card-change.negative {
+    color: #dc3545;
+}
+
+/* Graphiques */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 1.5rem;
+}
+
+/* Tableau */
+.table-container {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Pied de page */
+.footer {
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Styles pour les filtres */
+#filters-container {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Styles pour les cartes de statistiques sur mobile */
+@media (max-width: 768px) {
+    /* Barre latérale */
+    .sidebar {
+        position: static;
+        height: auto;
+        padding: 1rem 0;
+    }
+    
+    /* Contenu principal */
+    main {
+        padding: 1rem 0.5rem;
+    }
+    
+    /* Cartes de statistiques */
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .stat-card .card-body {
+        padding: 1rem;
+    }
+    
+    .stat-card .card-value {
+        font-size: 1.5rem;
+    }
+    
+    /* Graphiques */
+    .chart-container {
+        height: 250px;
+        margin-bottom: 1rem;
+    }
+    
+    /* Tableau */
+    .table-responsive {
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+    
+    /* Filtres */
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .input-group {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Boutons */
+    .btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    /* En-têtes */
+    h1, h2, h3, h4, h5, h6 {
+        word-break: break-word;
+    }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+    /* Ajustements supplémentaires pour les très petits écrans */
+    .stat-card .card-value {
+        font-size: 1.25rem;
+    }
+    
+    .stat-card .card-title {
+        font-size: 0.7rem;
+    }
+    
+    /* Ajustement des boutons dans les filtres */
+    #filters-container .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    #filters-container .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Ajustement des champs de formulaire */
+    .form-control, .form-select {
+        font-size: 0.875rem;
+    }
+    
+    /* Ajustement des marges */
+    .row {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+    
+    .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, 
+    .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+    .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, 
+    .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, 
+    .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, 
+    .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, 
+    .col-md-11, .col-md-12, .col-md,
+    .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, 
+    .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, 
+    .col-lg-11, .col-lg-12, .col-lg,
+    .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, 
+    .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, 
+    .col-xl-11, .col-xl-12, .col-xl {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    /* Ajustement des marges pour les rangées */
+    .row > * {
+        margin-bottom: 0.75rem;
+    }
+    
+    .row > *:last-child {
+        margin-bottom: 0;
+    }
+}

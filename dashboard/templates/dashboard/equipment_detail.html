@@ -1,0 +1,231 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- En-tête avec bouton de retour et actions -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a href="{% url 'equipment-list' %}" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+            </a>
+            <h1 class="h3 d-inline-block ms-3 mb-0">Détails de l'équipement</h1>
+        </div>
+        <div>
+            <a href="{% url 'equipment-edit' equipment_id=equipment._id %}" class="btn btn-outline-primary btn-sm me-2">
+                <i class="fas fa-edit me-1"></i> Modifier
+            </a>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                <i class="fas fa-trash-alt me-1"></i> Supprimer
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Colonne principale -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Informations générales</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Modèle</h6>
+                                <p class="mb-0">{{ equipment.model|default:"Non spécifié" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Marque</h6>
+                                <p class="mb-0">{{ equipment.brand|default:"Non spécifiée" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Numéro de série</h6>
+                                <p class="mb-0">{{ equipment.serial|default:"Non spécifié" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Code-barres</h6>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2">{{ equipment.barcode|default:"Non spécifié" }}</span>
+                                    {% if equipment.barcode %}
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="printBarcode('{{ equipment.barcode }}')">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Statut</h6>
+                                <span class="badge bg-{{ equipment.status|lower|default:'secondary' }}">
+                                    {{ equipment.status|default:"Inconnu" }}
+                                </span>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Localisation</h6>
+                                <p class="mb-0">{{ equipment.location|default:"Non spécifiée" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Date d'ajout</h6>
+                                <p class="mb-0">{{ equipment.creation_date|date:"d/m/Y H:i"|default:"Date inconnue" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Dernière mise à jour</h6>
+                                <p class="mb-0">{{ equipment.updated_at|date:"d/m/Y H:i"|default:"Jamais" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section des spécifications techniques -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Spécifications techniques</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Famille</h6>
+                                <p class="mb-0">{{ equipment.family|default:"Non spécifiée" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Sous-famille</h6>
+                                <p class="mb-0">{{ equipment.subfamily|default:"Non spécifiée" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Numéro d'inventaire</h6>
+                                <p class="mb-0">{{ equipment.inventory_number|default:"Non spécifié" }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted small mb-1">Valeur d'acquisition</h6>
+                                <p class="mb-0">{{ equipment.purchase_value|default:"0" }} MAD</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section des notes et commentaires -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Notes et commentaires</h5>
+                </div>
+                <div class="card-body">
+                    {% if equipment.notes %}
+                        {{ equipment.notes|linebreaks }}
+                    {% else %}
+                        <p class="text-muted fst-italic">Aucune note n'a été ajoutée pour cet équipement.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Colonne latérale -->
+        <div class="col-lg-4">
+            <!-- Carte d'état -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">État et maintenance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">État général</h6>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%;" 
+                                 aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                85%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Dernière maintenance</h6>
+                        <p class="mb-0">15/06/2023 - Nettoyage périodique</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-muted small mb-1">Prochaine maintenance</h6>
+                        <p class="mb-0">15/09/2023 - Vérification annuelle</p>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm w-100">
+                        <i class="fas fa-wrench me-1"></i> Enregistrer une intervention
+                    </button>
+                </div>
+            </div>
+
+            <!-- Historique des modifications -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Historique</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Modification du statut</h6>
+                                <small class="text-muted">Il y a 2 jours</small>
+                            </div>
+                            <p class="mb-1 small">Statut changé de "En stock" à "En service"</p>
+                            <small class="text-muted">Par: Admin</small>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Mise à jour des informations</h6>
+                                <small class="text-muted">Il y a 1 semaine</small>
+                            </div>
+                            <p class="mb-1 small">Localisation mise à jour</p>
+                            <small class="text-muted">Par: Technicien</small>
+                        </div>
+                        <div class="list-group-item text-center">
+                            <a href="#" class="text-decoration-none">Voir tout l'historique</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer définitivement cet équipement ? Cette action est irréversible.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form action="{% url 'equipment-delete' equipment_id=equipment._id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-1"></i> Supprimer définitivement
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function printBarcode(barcode) {
+        // Implémenter l'impression du code-barres
+        alert('Fonction d\'impression du code-barres: ' + barcode);
+    }
+    
+    // Initialisation des tooltips Bootstrap
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+{% endblock %}

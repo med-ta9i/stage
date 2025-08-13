@@ -1,0 +1,290 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<!-- Section des indicateurs clés -->
+<div class="row mb-4">
+    <!-- Nombre total d'équipements -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-primary h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Équipements</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-equipment">0</div>
+                    </div>
+                    <div class="icon-circle bg-primary">
+                        <i class="fas fa-boxes text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Équipements en service -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-success h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            En service</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="in-service">0</div>
+                    </div>
+                    <div class="icon-circle bg-success">
+                        <i class="fas fa-check-circle text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Équipements en maintenance -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-warning h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            En maintenance</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="in-maintenance">0</div>
+                    </div>
+                    <div class="icon-circle bg-warning">
+                        <i class="fas fa-tools text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Valeur totale du stock -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-info h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Valeur totale</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <span id="kpi-total-value">0</span> €
+                        </div>
+                    </div>
+                    <div class="icon-circle bg-info">
+                        <i class="fas fa-euro-sign text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section des graphiques et cartes -->
+{% include 'dashboard/includes/analytics.html' %}
+
+<!-- Filtres avancés -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold">Filtres avancés</h6>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="toggle-filters">
+            <i class="fas fa-filter me-1"></i> Afficher/Masquer les filtres
+        </button>
+    </div>
+    <div class="card-body" id="filters-container" style="display: none;">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label for="filter-status" class="form-label small text-muted mb-1">Statut</label>
+                <select class="form-select form-select-sm filter-input" id="filter-status">
+                    <option value="">Tous les statuts</option>
+                    <!-- Les options seront chargées dynamiquement -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="filter-location" class="form-label small text-muted mb-1">Localisation</label>
+                <select class="form-select form-select-sm filter-input" id="filter-location">
+                    <option value="">Toutes les localisations</option>
+                    <!-- Les options seront chargées dynamiquement -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="filter-model" class="form-label small text-muted mb-1">Modèle</label>
+                <input type="text" class="form-control form-control-sm filter-input" id="filter-model" 
+                       placeholder="Rechercher par modèle">
+            </div>
+            <div class="col-md-3">
+                <label for="filter-date-from" class="form-label small text-muted mb-1">Date d'ajout</label>
+                <div class="input-group input-group-sm">
+                    <input type="date" class="form-control form-control-sm filter-input" id="filter-date-from" 
+                           placeholder="Du">
+                    <span class="input-group-text">à</span>
+                    <input type="date" class="form-control form-control-sm filter-input" id="filter-date-to" 
+                           placeholder="Au">
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-outline-secondary me-2" id="reset-filters">
+                    <i class="fas fa-undo me-1"></i> Réinitialiser
+                </button>
+                <button type="button" class="btn btn-sm btn-primary" id="apply-filters">
+                    <i class="fas fa-search me-1"></i> Appliquer les filtres
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- En-tête avec les KPI -->
+<div class="row mb-4">
+    <!-- Nombre total d'équipements -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-primary h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">Équipements totaux</h6>
+                        <h2 class="card-value" id="total-equipments">0</h2>
+                        <p class="card-change text-success">
+                            <i class="fas fa-arrow-up me-1"></i> 12% depuis le mois dernier
+                        </p>
+                    </div>
+                    <div class="rounded-circle bg-primary p-3">
+                        <i class="fas fa-server fa-2x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Équipements en stock -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-success h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">En stock</h6>
+                        <h2 class="card-value" id="status-en-stock">0</h2>
+                        <p class="card-change text-success">
+                            <i class="fas fa-arrow-up me-1"></i> 5% depuis le mois dernier
+                        </p>
+                    </div>
+                    <div class="rounded-circle bg-success p-3">
+                        <i class="fas fa-boxes fa-2x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Équipements en service -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-info h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">En service</h6>
+                        <h2 class="card-value" id="status-en-service">0</h2>
+                        <p class="card-change text-success">
+                            <i class="fas fa-arrow-up me-1"></i> 8% depuis le mois dernier
+                        </p>
+                    </div>
+                    <div class="rounded-circle bg-info p-3">
+                        <i class="fas fa-laptop fa-2x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Valeur totale du stock -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-warning h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">Valeur totale</h6>
+                        <h2 class="card-value" id="kpi-total-value-2">0 MAD</h2>
+                        <p class="card-change text-danger">
+                            <i class="fas fa-arrow-down me-1"></i> 2% depuis le mois dernier
+                        </p>
+                    </div>
+                    <div class="rounded-circle bg-warning p-3">
+                        <i class="fas fa-dollar-sign fa-2x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Graphiques -->
+<div class="row mb-4">
+    <!-- Graphique de répartition par statut -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphique d'évolution temporelle -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tableau des équipements récents -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+        <h6 class="m-0 font-weight-bold mb-2 mb-md-0">Derniers équipements ajoutés</h6>
+        <div class="input-group" style="max-width: 100%; width: 300px;">
+            <input type="text" class="form-control form-control-sm" id="searchInput" 
+                   placeholder="Rechercher un équipement..." aria-label="Rechercher un équipement">
+            <button class="btn btn-outline-secondary btn-sm" type="button" id="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="equipmentsTable">
+                <thead>
+                    <tr>
+                        <th>Modèle</th>
+                        <th>N° de série</th>
+                        <th>Code-barres</th>
+                        <th>Statut</th>
+                        <th>Localisation</th>
+                        <th>Date d'ajout</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront ajoutées dynamiquement par JavaScript -->
+                    <tr>
+                        <td colspan="7" class="text-center">Chargement des données en cours...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <a href="{% url 'equipment-list' %}" class="btn btn-sm btn-primary">
+            <i class="fas fa-list me-1"></i> Voir tous les équipements
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Le code JavaScript est chargé depuis le fichier main.js
+</script>
+{% endblock %}
