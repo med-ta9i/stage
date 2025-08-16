@@ -22,7 +22,7 @@ Application web de suivi des équipements pour le magasin DEM, offrant une vue d
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/med-ta9i/stage
+   git clone [URL_DU_DEPOT]
    cd stage
    ```
 
@@ -178,10 +178,13 @@ MONGODB_URI=mongodb://utilisateur:motdepasse@serveur-mongodb:27017/dem_dashboard
 ALLOWED_HOSTS=.votredomaine.com,localhost,127.0.0.1
 ```
 
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## Auteur
 
-- M'hamed Taki - taki.mhamed.taki@gmail.com
+- [Votre Nom] - [votre.email@example.com]
 
 ## Remerciements
 
