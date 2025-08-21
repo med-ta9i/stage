@@ -89,11 +89,12 @@ WSGI_APPLICATION = 'dem_dashboard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Database
-# We're using PyMongo directly for MongoDB operations
+# Base de données pour Django (admin/auth/sessions)
+# On utilise SQLite par simplicité. Les données métier restent dans MongoDB via PyMongo.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

@@ -74,12 +74,49 @@
         </div>
     </div>
     
+    <!-- Zone des graphiques -->
+    <div class="row mt-4">
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Répartition par statut</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartStatus" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Évolution des stocks (12 mois)</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartEvolution" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Top localisations</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartLocations" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow-sm mt-4">
         <div class="card-header">
             <h5 class="mb-0">Créer un rapport personnalisé</h5>
         </div>
         <div class="card-body">
-            <form>
+            <form id="customReportForm">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="reportType" class="form-label">Type de rapport</label>
@@ -132,4 +169,120 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-pC1gVY0uI8bI8lB3M1l3m5C0t5m6L3G+q+P7pX3b9QyG8l5H2j2Q3w" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadStatusChart();
+        loadEvolutionChart();
+        loadLocationsChart();
+
+        // Formulaire rapports perso (placeholder)
+        const form = document.getElementById('customReportForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Génération de rapport personnalisée: à implémenter');
+            });
+        }
+    });
+
+    let chartStatusRef = null;
+    let chartEvolutionRef = null;
+    let chartLocationsRef = null;
+
+    function loadStatusChart() {
+        const url = '{% url "api-status-distribution" %}';
+        fetch(url)
+            .then(r => r.json())
+            .then(({ success, data }) => {
+                if (!success) return;
+                const ctx = document.getElementById('chartStatus');
+                if (!ctx) return;
+                if (chartStatusRef) chartStatusRef.destroy();
+                const colors = [
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(201, 203, 207, 0.7)'
+                ];
+                chartStatusRef = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            data: data.counts,
+                            backgroundColor: colors.slice(0, data.labels.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                });
+            })
+            .catch(console.warn);
+    }
+
+    function loadEvolutionChart() {
+        const url = '{% url "api-evolution" %}';
+        fetch(url)
+            .then(r => r.json())
+            .then(({ success, data }) => {
+                if (!success) return;
+                const ctx = document.getElementById('chartEvolution');
+                if (!ctx) return;
+                if (chartEvolutionRef) chartEvolutionRef.destroy();
+                chartEvolutionRef = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: data.datasets
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: { mode: 'index', intersect: false },
+                        stacked: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            })
+            .catch(console.warn);
+    }
+
+    function loadLocationsChart() {
+        const url = '{% url "api-locations" %}';
+        fetch(url)
+            .then(r => r.json())
+            .then(({ success, data }) => {
+                if (!success) return;
+                const ctx = document.getElementById('chartLocations');
+                if (!ctx) return;
+                if (chartLocationsRef) chartLocationsRef.destroy();
+                const labels = data.map(d => d.name);
+                const counts = data.map(d => d.count);
+                chartLocationsRef = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Équipements',
+                            data: counts,
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            })
+            .catch(console.warn);
+    }
+</script>
 {% endblock %}

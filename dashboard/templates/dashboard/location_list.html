@@ -1,22 +1,731 @@
 {% extends 'dashboard/base.html' %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Gestion des Localisations</h1>
+<!-- En-tête avec statistiques -->
+<div class="row mb-4">
+    <!-- Total des localisations -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-primary h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Sites</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-locations">0</div>
+                    </div>
+                    <div class="icon-circle bg-primary">
+                        <i class="fas fa-map-marker-alt text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <p class="card-text">Cette page affichera la liste des localisations et permettra de les gérer.</p>
-            <p>Fonctionnalités à venir :</p>
-            <ul>
-                <li>Liste des sites et emplacements</li>
-                <li>Carte interactive des localisations</li>
-                <li>Gestion des bâtiments, étages et salles</li>
-                <li>Statistiques par localisation</li>
-            </ul>
+
+    <!-- Sites avec TNT -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-success h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Sites TNT</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="tnt-locations">0</div>
+                    </div>
+                    <div class="icon-circle bg-success">
+                        <i class="fas fa-broadcast-tower text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sites avec FM -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-info h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Sites FM</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="fm-locations">0</div>
+                    </div>
+                    <div class="icon-circle bg-info">
+                        <i class="fas fa-radio text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Régions couvertes -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card border-left-warning h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Régions</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-regions">0</div>
+                    </div>
+                    <div class="icon-circle bg-warning">
+                        <i class="fas fa-globe text-white"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Filtres avancés -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold">Filtres et recherche</h6>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="toggle-filters">
+            <i class="fas fa-filter me-1"></i> Filtres avancés
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-site" placeholder="Rechercher un site...">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="filter-region">
+                    <option value="">Toutes les régions</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="filter-category">
+                    <option value="">Toutes les catégories</option>
+                    <option value="P">Principal</option>
+                    <option value="M">Moyen</option>
+                    <option value="G">Grand</option>
+                    <option value="A">Administratif</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" id="apply-filters">
+                    <i class="fas fa-search me-1"></i> Rechercher
+                </button>
+            </div>
+        </div>
+        
+        <!-- Filtres avancés (masqués par défaut) -->
+        <div id="advanced-filters" style="display: none;">
+            <hr>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Services</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="filter-tnt">
+                        <label class="form-check-label" for="filter-tnt">TNT</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="filter-fm">
+                        <label class="form-check-label" for="filter-fm">FM</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="filter-am">
+                        <label class="form-check-label" for="filter-am">AM</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Province</label>
+                    <select class="form-select" id="filter-province">
+                        <option value="">Toutes les provinces</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">SNRT RS</label>
+                    <select class="form-select" id="filter-snrt">
+                        <option value="">Tous</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-outline-secondary w-100" id="reset-filters">
+                        <i class="fas fa-undo me-1"></i> Réinitialiser
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Graphiques et carte -->
+<div class="row mb-4">
+    <!-- Graphique répartition par région -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Répartition par région</h6>
+            </div>
+            <div class="card-body">
+                <canvas id="regionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carte interactive -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold">Carte des sites</h6>
+                <button class="btn btn-sm btn-outline-primary" id="fullscreen-map">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div id="locations-map" style="height: 300px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tableau des localisations -->
+<div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold">Liste des localisations</h6>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-success" id="add-location">
+                <i class="fas fa-plus me-1"></i> Ajouter un site
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="export-locations">
+                <i class="fas fa-download me-1"></i> Exporter
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="locationsTable">
+                <thead>
+                    <tr>
+                        <th>Site</th>
+                        <th>Province</th>
+                        <th>Région</th>
+                        <th>Catégorie</th>
+                        <th>Services</th>
+                        <th>Coordonnées</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        <nav aria-label="Navigation des pages">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- Les éléments de pagination seront ajoutés par JavaScript -->
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Modal pour la carte en plein écran -->
+<div class="modal fade" id="mapModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Carte des sites de diffusion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div id="fullscreen-locations-map" style="height: 600px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Variables globales
+let locationsData = [];
+let currentPage = 1;
+let totalPages = 1;
+let currentFilters = {};
+// Carte Leaflet
+let map = null;
+let markersLayer = null;
+let mapDataCache = [];
+let fullscreenMap = null;
+let fullscreenMarkersLayer = null;
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLocationsList();
+    loadStatistics();
+    setupEventListeners();
+});
+
+// Configuration des écouteurs d'événements
+function setupEventListeners() {
+    // Filtres
+    document.getElementById('toggle-filters').addEventListener('click', toggleAdvancedFilters);
+    document.getElementById('apply-filters').addEventListener('click', applyFilters);
+    document.getElementById('reset-filters').addEventListener('click', resetFilters);
+    
+    // Recherche en temps réel
+    document.getElementById('search-site').addEventListener('input', debounce(applyFilters, 500));
+    
+    // Actions
+    document.getElementById('add-location').addEventListener('click', () => {
+        window.location.href = '/localisations/ajouter/';
+    });
+    
+    document.getElementById('export-locations').addEventListener('click', exportLocations);
+    document.getElementById('fullscreen-map').addEventListener('click', showFullscreenMap);
+}
+
+// Charger les statistiques
+function loadStatistics() {
+    fetch('/api/locations/stats/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('total-locations').textContent = data.total_locations || 0;
+            const services = data.services || {};
+            document.getElementById('tnt-locations').textContent = services.tnt_count || 0;
+            document.getElementById('fm-locations').textContent = services.fm_count || 0;
+            const regions = (data.by_region || []).filter(r => r._id && r._id !== '-');
+            document.getElementById('total-regions').textContent = regions.length || 0;
+            
+            // Charger les données pour les filtres
+            loadFiltersData();
+        })
+        .catch(error => console.error('Erreur lors du chargement des statistiques:', error));
+}
+
+// Charger les données pour les filtres
+function loadFiltersData() {
+    fetch('/api/locations/?page_size=1000')
+        .then(response => response.json())
+        .then(data => {
+            populateFilters(data.results || []);
+            loadRegionChart(data.results || []);
+        })
+        .catch(error => console.error('Erreur lors du chargement des données de filtres:', error));
+}
+
+// Initialiser la liste des localisations
+function initializeLocationsList() {
+    loadLocations();
+}
+
+// Charger les localisations
+function loadLocations(page = 1, filters = {}) {
+    currentPage = page;
+    currentFilters = filters;
+    
+    const params = new URLSearchParams({
+        page: page,
+        page_size: 20,
+        ...filters
+    });
+    
+    fetch(`/api/locations/?${params}`)
+        .then(response => response.json())
+        .then(data => {
+            locationsData = data.results || [];
+            totalPages = Math.ceil(data.total / 20);
+            
+            renderLocationsTable();
+            renderPagination();
+            loadMap();
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement des localisations:', error);
+            showError('Erreur lors du chargement des données');
+        });
+}
+
+// Afficher le tableau des localisations
+function renderLocationsTable() {
+    const tbody = document.querySelector('#locationsTable tbody');
+    
+    if (locationsData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center">Aucune localisation trouvée</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = locationsData.map(location => `
+        <tr>
+            <td>
+                <strong>${location.site_name || 'N/A'}</strong>
+                ${location.code ? `<br><small class="text-muted">Code: ${location.code}</small>` : ''}
+            </td>
+            <td>${location.province || 'N/A'}</td>
+            <td>${location.region || 'N/A'}</td>
+            <td>
+                <span class="badge bg-${getCategoryColor(location.category)}">
+                    ${getCategoryLabel(location.category)}
+                </span>
+            </td>
+            <td>${renderServices(location.services)}</td>
+            <td>${renderCoordinates(location.coordinates)}</td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary" onclick="viewLocation('${location._id}')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="editLocation('${location._id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" onclick="deleteLocation('${location._id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Fonctions utilitaires
+function getCategoryColor(category) {
+    const colors = { 'P': 'primary', 'M': 'success', 'G': 'warning', 'A': 'info' };
+    return colors[category] || 'secondary';
+}
+
+function getCategoryLabel(category) {
+    const labels = { 'P': 'Principal', 'M': 'Moyen', 'G': 'Grand', 'A': 'Admin' };
+    return labels[category] || 'N/A';
+}
+
+function renderServices(services) {
+    if (!services) return 'N/A';
+    
+    const servicesList = [];
+    if (services.tnt) servicesList.push('<span class="badge bg-success">TNT</span>');
+    if (services.fm) servicesList.push('<span class="badge bg-info">FM</span>');
+    if (services.am) servicesList.push('<span class="badge bg-warning">AM</span>');
+    
+    return servicesList.length > 0 ? servicesList.join(' ') : 'Aucun';
+}
+
+function renderCoordinates(coordinates) {
+    if (!coordinates || !coordinates.latitude || !coordinates.longitude) {
+        return 'N/A';
+    }
+    return `${coordinates.latitude.toFixed(4)}, ${coordinates.longitude.toFixed(4)}`;
+}
+
+// Fonctions d'action
+function viewLocation(id) {
+    window.location.href = `/localisations/${id}/`;
+}
+
+function editLocation(id) {
+    window.location.href = `/localisations/${id}/modifier/`;
+}
+
+function deleteLocation(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette localisation ?')) {
+        window.location.href = `/localisations/${id}/supprimer/`;
+    }
+}
+
+// Utilitaires
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function showError(message) {
+    // Afficher une notification d'erreur
+    console.error(message);
+}
+
+// Fonctions à implémenter
+function toggleAdvancedFilters() {
+    const filters = document.getElementById('advanced-filters');
+    filters.style.display = filters.style.display === 'none' ? 'block' : 'none';
+}
+
+function applyFilters() {
+    const filters = {
+        site_name: document.getElementById('search-site').value,
+        region: document.getElementById('filter-region').value,
+        category: document.getElementById('filter-category').value,
+        province: document.getElementById('filter-province').value,
+        // Filtres services attendus par l'API: service_tnt, service_fm, service_am
+        ...(document.getElementById('filter-tnt').checked ? { service_tnt: true } : {}),
+        ...(document.getElementById('filter-fm').checked ? { service_fm: true } : {}),
+        ...(document.getElementById('filter-am').checked ? { service_am: true } : {}),
+    };
+    
+    // Nettoyer les filtres vides
+    Object.keys(filters).forEach(key => {
+        if (filters[key] === '' || filters[key] === undefined || filters[key] === null) delete filters[key];
+    });
+    
+    loadLocations(1, filters);
+}
+
+function resetFilters() {
+    document.getElementById('search-site').value = '';
+    document.getElementById('filter-region').value = '';
+    document.getElementById('filter-category').value = '';
+    document.getElementById('filter-province').value = '';
+    loadLocations(1, {});
+}
+
+function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    if (!totalPages || totalPages <= 1) return;
+
+    const createItem = (label, page, disabled = false, active = false) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.textContent = label;
+        if (!disabled) {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (page !== currentPage) loadLocations(page, currentFilters);
+            });
+        }
+        li.appendChild(a);
+        return li;
+    };
+
+    // Prev
+    pagination.appendChild(createItem('«', Math.max(1, currentPage - 1), currentPage === 1));
+
+    // Pages (simple: 1..totalPages, on peut améliorer plus tard)
+    for (let p = 1; p <= totalPages; p++) {
+        pagination.appendChild(createItem(String(p), p, false, p === currentPage));
+    }
+
+    // Next
+    pagination.appendChild(createItem('»', Math.min(totalPages, currentPage + 1), currentPage === totalPages));
+}
+
+function loadMap() {
+    if (typeof L === 'undefined') return; // Leaflet non chargé
+    const container = document.getElementById('locations-map');
+    if (!container) return;
+
+    // Init carte si besoin
+    if (!map) {
+        map = L.map('locations-map');
+        map.setView([31.7917, -7.0926], 6); // Maroc
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        markersLayer = L.layerGroup().addTo(map);
+    }
+
+    // Appel sans filtres pour les données de carte
+    fetch('/api/locations/map-data/')
+        .then(async r => {
+            const ct = r.headers.get('content-type') || '';
+            const body = ct.includes('application/json') ? await r.json() : [];
+            return body;
+        })
+        .then(points => {
+            // Si l'API renvoie une erreur, l'afficher et sortir
+            if (points && typeof points === 'object' && !Array.isArray(points) && points.error) {
+                console.error('[Map] Erreur API map-data:', points.error);
+                const container = document.getElementById('locations-map');
+                if (container) {
+                    container.innerHTML = `<div class="p-3 text-danger">Erreur chargement carte: ${points.error}</div>`;
+                }
+                return;
+            }
+            // Accepter soit un tableau direct, soit un objet avec une clé courante (data, results)
+            let arr = [];
+            if (Array.isArray(points)) arr = points;
+            else if (Array.isArray(points?.data)) arr = points.data;
+            else if (Array.isArray(points?.results)) arr = points.results;
+            mapDataCache = arr;
+            console.debug('[Map] Points reçus:', { count: arr.length, sample: arr[0] });
+            markersLayer.clearLayers();
+            const bounds = [];
+            mapDataCache.forEach(p => {
+                const lat = p?.lat != null ? parseFloat(p.lat) : NaN;
+                const lng = p?.lng != null ? parseFloat(p.lng) : NaN;
+                if (Number.isFinite(lat) && Number.isFinite(lng)) {
+                    const m = L.marker([lat, lng]);
+                    const services = p.services || {};
+                    const svc = [services.tnt ? 'TNT' : null, services.fm ? 'FM' : null, services.am ? 'AM' : null].filter(Boolean).join(', ');
+                    m.bindPopup(`<strong>${p.name || ''}</strong><br>${p.region || ''} - ${p.province || ''}${svc ? '<br>Services: ' + svc : ''}`);
+                    m.addTo(markersLayer);
+                    bounds.push([lat, lng]);
+                }
+            });
+            if (bounds.length) map.fitBounds(bounds, { padding: [20, 20] });
+            else console.warn('[Map] Aucun marqueur affiché (bounds vides). Vérifiez les lat/lng.');
+        })
+        .catch(err => {
+            console.error('[Map] Erreur de récupération des données:', err);
+        });
+}
+
+function showFullscreenMap() {
+    const modalEl = document.getElementById('mapModal');
+    if (!modalEl) return;
+    const modal = new bootstrap.Modal(modalEl);
+    modalEl.addEventListener('shown.bs.modal', () => {
+        if (typeof L === 'undefined') return;
+        if (!fullscreenMap) {
+            fullscreenMap = L.map('fullscreen-locations-map');
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(fullscreenMap);
+            fullscreenMarkersLayer = L.layerGroup().addTo(fullscreenMap);
+        }
+        fullscreenMap.invalidateSize();
+        // Synchroniser marqueurs
+        fullscreenMarkersLayer.clearLayers();
+        const bounds = [];
+        (mapDataCache || []).forEach(p => {
+            if (p.lat != null && p.lng != null) {
+                L.marker([p.lat, p.lng]).addTo(fullscreenMarkersLayer);
+                bounds.push([p.lat, p.lng]);
+            }
+        });
+        if (bounds.length) fullscreenMap.fitBounds(bounds, { padding: [20, 20] });
+    }, { once: true });
+    modal.show();
+}
+
+function loadRegionChart(data) {
+    // Compter les localisations par région
+    const regionCounts = {};
+    data.forEach(location => {
+        const region = location.region;
+        if (region && region !== '-') {
+            regionCounts[region] = (regionCounts[region] || 0) + 1;
+        }
+    });
+
+    const labels = Object.keys(regionCounts);
+    const values = Object.values(regionCounts);
+
+    if (typeof Chart !== 'undefined') {
+        const ctx = document.getElementById('regionChart');
+        if (ctx) {
+            // Détruire un graphique existant si besoin
+            if (ctx._chartInstance) {
+                ctx._chartInstance.destroy();
+            }
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            '#007bff', '#28a745', '#ffc107', '#dc3545',
+                            '#6f42c1', '#fd7e14', '#20c997', '#6c757d',
+                            '#e83e8c', '#17a2b8', '#f8f9fa', '#343a40'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+            // stocker l'instance pour destruction future
+            ctx._chartInstance = chart;
+        }
+    }
+}
+
+function populateFilters(data) {
+    // Remplir les listes déroulantes des filtres
+    const regionSelect = document.getElementById('filter-region');
+    const provinceSelect = document.getElementById('filter-province');
+    
+    // Extraire les régions uniques
+    const regions = [...new Set(data.map(location => location.region).filter(r => r && r !== '-'))].sort();
+    
+    // Vider et remplir le select des régions
+    regionSelect.innerHTML = '<option value="">Toutes les régions</option>';
+    regions.forEach(region => {
+        const option = document.createElement('option');
+        option.value = region;
+        option.textContent = region;
+        regionSelect.appendChild(option);
+    });
+    
+    // Extraire les provinces uniques
+    const provinces = [...new Set(data.map(location => location.province).filter(p => p && p !== '-'))].sort();
+    
+    // Vider et remplir le select des provinces
+    provinceSelect.innerHTML = '<option value="">Toutes les provinces</option>';
+    provinces.forEach(province => {
+        const option = document.createElement('option');
+        option.value = province;
+        option.textContent = province;
+        provinceSelect.appendChild(option);
+    });
+}
+
+// Export CSV simple côté client à partir des données paginées de l'API
+async function exportLocations() {
+    try {
+        const params = new URLSearchParams({ page_size: 1000, ...currentFilters });
+        const resp = await fetch(`/api/locations/?${params.toString()}`);
+        const data = await resp.json();
+        const rows = data.results || [];
+        if (!rows.length) {
+            alert('Aucune donnée à exporter.');
+            return;
+        }
+        // Colonnes de base
+        const headers = ['site_name','province','region','category','services.tnt','services.fm','services.am','coordinates.latitude','coordinates.longitude'];
+        const csv = [headers.join(',')]
+            .concat(rows.map(r => {
+                const vals = [
+                    r.site_name || '',
+                    r.province || '',
+                    r.region || '',
+                    r.category || '',
+                    (r.services && r.services.tnt) ? '1' : '0',
+                    (r.services && r.services.fm) ? '1' : '0',
+                    (r.services && r.services.am) ? '1' : '0',
+                    (r.coordinates && r.coordinates.latitude != null) ? r.coordinates.latitude : '',
+                    (r.coordinates && r.coordinates.longitude != null) ? r.coordinates.longitude : ''
+                ];
+                return vals.map(v => (`${v}`.includes(',') ? `"${(`${v}`).replaceAll('"','""')}"` : v)).join(',');
+            }))
+            .join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'localisations.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (e) {
+        console.error('Erreur export:', e);
+        alert('Erreur lors de l\'export.');
+    }
+}
+</script>
 {% endblock %}

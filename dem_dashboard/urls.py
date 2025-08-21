@@ -9,6 +9,8 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.contrib.admin.views.decorators import staff_member_required
+from dashboard.views import EquipmentStatsAdminView
 
 # Configuration de la documentation de l'API avec Swagger/OpenAPI
 schema_view = get_schema_view(
@@ -30,6 +32,7 @@ urlpatterns = [
     
     # Interface d'administration Django
     path('admin/', admin.site.urls),
+    path('admin/equipment-stats/', staff_member_required(EquipmentStatsAdminView.as_view()), name='admin-equipment-stats'),
     
     # API endpoints et documentation
     path('api/', include([
