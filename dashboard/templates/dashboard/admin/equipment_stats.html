@@ -1,0 +1,84 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Statistiques Équipements | {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Accueil</a>
+  &rsaquo; Statistiques Équipements
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Statistiques Équipements</h1>
+
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-body">
+    <h2 class="h4">Vue d'ensemble</h2>
+    <p class="lead" style="margin:0;">Total équipements: <strong>{{ total }}</strong></p>
+  </div>
+</div>
+
+<div class="row" style="display:flex; gap:16px; flex-wrap:wrap;">
+  <div class="col" style="flex:1 1 320px;">
+    <div class="card">
+      <div class="card-header"><strong>Répartition par statut</strong></div>
+      <div class="card-body">
+        {% if by_status %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Statut</th>
+              <th class="text-end">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in by_status %}
+            <tr>
+              <td>{{ row._id|default:"Non spécifié" }}</td>
+              <td class="text-end">{{ row.count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+          <em>Aucune donnée</em>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col" style="flex:1 1 320px;">
+    <div class="card">
+      <div class="card-header"><strong>Top localisations</strong></div>
+      <div class="card-body">
+        {% if top_locations %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Localisation</th>
+              <th class="text-end">Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in top_locations %}
+            <tr>
+              <td>{{ row._id }}</td>
+              <td class="text-end">{{ row.count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+          <em>Aucune donnée</em>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:16px;">
+  <a href="{% url 'admin:index' %}" class="button">Retour à l'administration</a>
+</div>
+{% endblock %}
