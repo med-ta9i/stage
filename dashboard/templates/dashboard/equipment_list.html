@@ -213,6 +213,9 @@
         
         // Chargement initial des équipements
         loadEquipments();
+        
+        // Remplir le filtre des localisations
+        populateLocationsFilter();
     });
     
     function initializeEventListeners() {
@@ -233,6 +236,14 @@
         
         // Gestionnaire pour la génération de code-barres
         document.getElementById('generateBarcode').addEventListener('click', generateBarcode);
+        
+        // Gestionnaires Export
+        const btnCsv = document.getElementById('exportCSV');
+        const btnXlsx = document.getElementById('exportExcel');
+        const btnPdf = document.getElementById('exportPDF');
+        if (btnCsv) btnCsv.addEventListener('click', (e) => { e.preventDefault(); exportCSV(); });
+        if (btnXlsx) btnXlsx.addEventListener('click', (e) => { e.preventDefault(); exportExcel(); });
+        if (btnPdf) btnPdf.addEventListener('click', (e) => { e.preventDefault(); exportPDF(); });
     }
     
     function loadEquipments(page = 1) {
@@ -243,7 +254,7 @@
             model: document.getElementById('filterModel').value,
             search: document.getElementById('searchInput').value,
             page: page,
-            pageSize: 10 // Nombre d'éléments par page
+            page_size: 10 // Nombre d'éléments par page (clé alignée avec l'API)
         };
         
         // Afficher l'indicateur de chargement
@@ -258,12 +269,13 @@
                 </td>
             </tr>`;
         
-        // Ici, vous devrez implémenter l'appel à votre API pour récupérer les équipements
-        // Exemple avec fetch :
-        /*
-        fetch('/api/equipments/?' + new URLSearchParams(filters))
-            .then(response => response.json())
+        // Appel à l'API Equipements
+        const baseUrl = '{% url "api-equipment-list" %}';
+        const qs = new URLSearchParams(filters);
+        fetch(`${baseUrl}?${qs.toString()}`)
+            .then(r => r.json())
             .then(data => {
+                // data: { total, page, page_size, results }
                 updateEquipmentTable(data);
                 updatePagination(data);
             })
@@ -277,7 +289,30 @@
                         </td>
                     </tr>`;
             });
-        */
+    }
+    
+    // Remplit la liste déroulante des localisations via group_by=location
+    function populateLocationsFilter() {
+        const select = document.getElementById('filterLocation');
+        if (!select) return;
+        const url = '{% url "api-equipment-list" %}?group_by=location';
+        fetch(url)
+            .then(r => r.json())
+            .then(items => {
+                // items: [{ _id: 'Loc A', count: 12 }, ...]
+                // Réinitialiser en gardant l'option vide par défaut
+                const defaultOption = select.querySelector('option[value=""]');
+                select.innerHTML = '';
+                if (defaultOption) select.appendChild(defaultOption);
+                (items || []).forEach(it => {
+                    if (!it || !it._id) return;
+                    const opt = document.createElement('option');
+                    opt.value = it._id;
+                    opt.textContent = `${it._id} (${it.count})`;
+                    select.appendChild(opt);
+                });
+            })
+            .catch(err => console.warn('Impossible de charger les localisations:', err));
     }
     
     function updateEquipmentTable(data) {
@@ -343,55 +378,58 @@
         // Vider la pagination existante
         pagination.innerHTML = '';
         
-        // Si une seule page, ne pas afficher la pagination
-        if (!data.total_pages || data.total_pages <= 1) {
-            return;
-        }
+        // Calculer le nombre total de pages à partir de l'API
+        const total = Number(data.total || 0);
+        const currentPage = Number(data.page || 1);
+        const pageSize = Number(data.page_size || 10);
+        const totalPages = Math.max(1, Math.ceil(total / pageSize));
+        if (totalPages <= 1) return;
         
-        const currentPage = data.current_page || 1;
-        const totalPages = data.total_pages || 1;
+        // Helper pour créer un élément de page
+        const createPageItem = (label, page, disabled = false, active = false) => {
+            const li = document.createElement('li');
+            li.className = `page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}`.trim();
+            const a = document.createElement('a');
+            a.className = 'page-link';
+            a.href = '#';
+            a.textContent = label;
+            if (!disabled && !active) {
+                a.addEventListener('click', (e) => { e.preventDefault(); loadEquipments(page); });
+            }
+            li.appendChild(a);
+            return li;
+        };
         
         // Bouton Précédent
-        const prevLi = document.createElement('li');
-        prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
-        prevLi.innerHTML = `
-            <a class="page-link" href="#" aria-label="Précédent" ${currentPage === 1 ? 'tabindex="-1"' : ''}>
-                <span aria-hidden="true">&laquo;</span>
-            </a>`;
-        prevLi.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (currentPage > 1) loadEquipments(currentPage - 1);
-        });
-        pagination.appendChild(prevLi);
+        pagination.appendChild(createPageItem('«', currentPage - 1, currentPage === 1));
         
-        // Numéros de page
-        for (let i = 1; i <= totalPages; i++) {
-            const pageLi = document.createElement('li');
-            pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
-            pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-            
-            if (i !== currentPage) {
-                pageLi.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loadEquipments(i);
-                });
-            }
-            
-            pagination.appendChild(pageLi);
+        // Déterminer les pages à afficher avec ellipses
+        const windowSize = 2; // nombre de pages autour de la page courante
+        const pages = new Set();
+        pages.add(1);
+        pages.add(totalPages);
+        for (let i = currentPage - windowSize; i <= currentPage + windowSize; i++) {
+            if (i >= 1 && i <= totalPages) pages.add(i);
         }
+        // Convertir en tableau trié
+        const sortedPages = Array.from(pages).sort((a, b) => a - b);
+        
+        // Rendu avec ellipses
+        let prev = null;
+        sortedPages.forEach(p => {
+            if (prev !== null && p - prev > 1) {
+                // Ellipse
+                const ellipsis = document.createElement('li');
+                ellipsis.className = 'page-item disabled';
+                ellipsis.innerHTML = '<span class="page-link">…</span>';
+                pagination.appendChild(ellipsis);
+            }
+            pagination.appendChild(createPageItem(String(p), p, false, p === currentPage));
+            prev = p;
+        });
         
         // Bouton Suivant
-        const nextLi = document.createElement('li');
-        nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-        nextLi.innerHTML = `
-            <a class="page-link" href="#" aria-label="Suivant" ${currentPage === totalPages ? 'tabindex="-1"' : ''}>
-                <span aria-hidden="true">&raquo;</span>
-            </a>`;
-        nextLi.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (currentPage < totalPages) loadEquipments(currentPage + 1);
-        });
-        pagination.appendChild(nextLi);
+        pagination.appendChild(createPageItem('»', currentPage + 1, currentPage === totalPages));
     }
     
     function resetFilters() {
@@ -444,6 +482,37 @@
         console.log(`Suppression de l'équipement ${id}`);
         // Rafraîchir la liste après suppression
         loadEquipments();
+    }
+    
+    // Récupère les filtres courants pour construire la query string
+    function getCurrentFilters() {
+        const params = new URLSearchParams();
+        const status = document.getElementById('filterStatus').value;
+        const location = document.getElementById('filterLocation').value;
+        const model = document.getElementById('filterModel').value;
+        const search = document.getElementById('searchInput').value;
+        if (status) params.set('status', status);
+        if (location) params.set('location', location);
+        if (model) params.set('model', model);
+        if (search) params.set('search', search);
+        return params;
+    }
+    
+    function exportCSV() {
+        const base = '{% url "api-equipment-export-csv" %}';
+        const qs = getCurrentFilters();
+        window.location.href = `${base}?${qs.toString()}`;
+    }
+    
+    function exportExcel() {
+        const base = '{% url "api-equipment-export-excel" %}';
+        const qs = getCurrentFilters();
+        window.location.href = `${base}?${qs.toString()}`;
+    }
+    
+    function exportPDF() {
+        // À implémenter: génération PDF côté serveur
+        alert('Export PDF à implémenter');
     }
 </script>
 {% endblock %}

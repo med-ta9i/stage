@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, UpdateView, DeleteView
+from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
@@ -11,7 +12,10 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
-from .api import get_equipments, get_equipment, get_equipment_relations, update_equipment, delete_equipment
+from .api import get_equipments, get_equipment, get_equipment_relations, update_equipment, delete_equipment, create_equipment, get_mongodb_connection
+import csv
+import io
+from datetime import datetime
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 20
@@ -293,6 +297,46 @@ def equipment_relations(request, equipment_id, relation_type):
     return Response(relations)
 
 
+@api_view(['GET'])
+def admin_overview(request):
+    """
+    Retourne des statistiques globales pour la console d'administration interne.
+    - Statut MongoDB
+    - Compte des équipements
+    - Compte des localisations (si collection disponible)
+    - Horodatage serveur
+    """
+    data = {
+        'mongo': {'ok': False, 'error': None},
+        'counters': {
+            'equipments': 0,
+            'locations': 0,
+        },
+        'server_time': datetime.utcnow().isoformat() + 'Z'
+    }
+    try:
+        db = get_mongodb_connection()
+        # Ping
+        try:
+            db.client.admin.command('ping')
+            data['mongo']['ok'] = True
+        except Exception as e:
+            data['mongo']['error'] = str(e)
+        # Compteurs
+        try:
+            data['counters']['equipments'] = db['equipment'].count_documents({})
+        except Exception:
+            pass
+        try:
+            data['counters']['locations'] = db['locations'].count_documents({})
+        except Exception:
+            pass
+        return JsonResponse({'success': True, 'data': data})
+    except Exception as e:
+        data['mongo']['error'] = str(e)
+        return JsonResponse({'success': False, 'data': data}, status=500)
+
+
 class DashboardView(TemplateView):
     """
     Vue principale du tableau de bord
@@ -368,3 +412,132 @@ def serve_static_dev(request, path):
     # Retourner une réponse 404 si le fichier n'existe pas ou en cas d'erreur
     return HttpResponseNotFound('Fichier non trouvé')
     raise Http404("Le fichier demandé n'existe pas.")
+
+@api_view(['GET'])
+def export_equipments_csv(request):
+    """
+    Exporte la liste des équipements filtrés en CSV.
+    Les mêmes filtres que l'API /api/equipments/ sont supportés via query params.
+    """
+    # Construire les filtres depuis la query string
+    filters = {}
+    for param in ['model', 'serial', 'barcode', 'status', 'location']:
+        if param in request.query_params:
+            filters[param] = request.query_params.get(param)
+
+    # Filtres de date (plages)
+    for param in ['creation_date', 'dms']:
+        gte = request.query_params.get(f'{param}_gte')
+        lte = request.query_params.get(f'{param}_lte')
+        if gte or lte:
+            filters[param] = {}
+            if gte:
+                filters[param]['gte'] = gte
+            if lte:
+                filters[param]['lte'] = lte
+
+    # Récupérer un grand lot (pas de pagination pour export)
+    data = get_equipments(filters=filters, page=1, page_size=100000)
+    rows = data.get('results', [])
+
+    # Champs à exporter
+    fieldnames = ['_id', 'model', 'brand', 'serial', 'barcode', 'status', 'location',
+                  'family', 'subfamily', 'inventory_number', 'purchase_value',
+                  'creation_date', 'updated_at']
+
+    # Générer le CSV en mémoire
+    buffer = io.StringIO()
+    writer = csv.DictWriter(buffer, fieldnames=fieldnames, extrasaction='ignore')
+    writer.writeheader()
+    for r in rows:
+        writer.writerow({k: ('' if r.get(k) is None else r.get(k)) for k in fieldnames})
+
+    content = buffer.getvalue()
+    buffer.close()
+
+    # Réponse HTTP avec attachement
+    filename = f"equipements_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.csv"
+    response = HttpResponse(content, content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+@api_view(['GET'])
+def export_equipments_excel(request):
+    """
+    Exporte la liste des équipements filtrés en Excel (XLSX).
+    """
+    # Construire les filtres identiques à CSV
+    filters = {}
+    for param in ['model', 'serial', 'barcode', 'status', 'location']:
+        if param in request.query_params:
+            filters[param] = request.query_params.get(param)
+
+    for param in ['creation_date', 'dms']:
+        gte = request.query_params.get(f'{param}_gte')
+        lte = request.query_params.get(f'{param}_lte')
+        if gte or lte:
+            filters[param] = {}
+            if gte:
+                filters[param]['gte'] = gte
+            if lte:
+                filters[param]['lte'] = lte
+
+    data = get_equipments(filters=filters, page=1, page_size=100000)
+    rows = data.get('results', [])
+
+    # Champs à exporter
+    fieldnames = ['_id', 'model', 'brand', 'serial', 'barcode', 'status', 'location',
+                  'family', 'subfamily', 'inventory_number', 'purchase_value',
+                  'creation_date', 'updated_at']
+
+    # Utiliser pandas pour créer un fichier Excel en mémoire
+    import pandas as pd
+    import io as _io
+    df = pd.DataFrame(rows, columns=fieldnames)
+    output = _io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Equipements')
+        writer.close()
+    output.seek(0)
+
+    filename = f"equipements_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.xlsx"
+    response = HttpResponse(output.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+class EquipmentStatsAdminView(View):
+    """
+    Page d'administration (réservée au staff) affichant des statistiques
+    synthétiques basées sur MongoDB (pas d'ORM requis).
+    """
+    template_name = 'dashboard/admin/equipment_stats.html'
+
+    def get(self, request):
+        db = get_mongodb_connection()
+        coll = db['equipment']
+
+        # Compteurs simples
+        total = coll.count_documents({})
+
+        # Répartition par statut
+        pipeline_status = [
+            { '$group': { '_id': '$status', 'count': { '$sum': 1 } } },
+            { '$sort': { 'count': -1 } }
+        ]
+        by_status = list(coll.aggregate(pipeline_status))
+
+        # Top localisations
+        pipeline_loc = [
+            { '$match': { 'location': { '$exists': True, '$ne': '' } } },
+            { '$group': { '_id': '$location', 'count': { '$sum': 1 } } },
+            { '$sort': { 'count': -1 } },
+            { '$limit': 10 }
+        ]
+        top_locations = list(coll.aggregate(pipeline_loc))
+
+        context = {
+            'total': total,
+            'by_status': by_status,
+            'top_locations': top_locations,
+        }
+        return render(request, self.template_name, context)

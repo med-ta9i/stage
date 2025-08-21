@@ -111,7 +111,12 @@ async function loadKPIs(filters = {}) {
 // Fonction pour initialiser les graphiques
 function initCharts() {
     // Graphique de répartition par statut
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    const statusCanvas = document.getElementById('statusChart');
+    if (!statusCanvas) {
+        // Pas de graphiques sur cette page
+        return;
+    }
+    const statusCtx = statusCanvas.getContext('2d');
     
     // Configuration du graphique de répartition par statut
     const statusChart = new Chart(statusCtx, {
@@ -184,10 +189,11 @@ function initCharts() {
     });
     
     // Graphique d'évolution temporelle
-    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    const timelineCanvas = document.getElementById('timelineChart');
+    const timelineCtx = timelineCanvas ? timelineCanvas.getContext('2d') : null;
     
     // Configuration du graphique d'évolution temporelle
-    const timelineChart = new Chart(timelineCtx, {
+    const timelineChart = timelineCtx ? new Chart(timelineCtx, {
         type: 'line',
         data: {
             labels: [],
@@ -278,7 +284,7 @@ function initCharts() {
                 easing: 'easeInOutQuart'
             }
         }
-    });
+    }) : null;
     
     // Stocker les instances de graphiques dans l'objet window pour pouvoir les mettre à jour plus tard
     window.statusChart = statusChart;
@@ -742,14 +748,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Initialiser les graphiques
-    initCharts();
+    // Initialiser les graphiques uniquement si un canvas est présent
+    if (document.getElementById('statusChart') || document.getElementById('timelineChart')) {
+        initCharts();
+    }
     
-    // Charger les données avec les filtres initiaux
-    loadKPIs(filters).then(() => {
-        loadEquipmentsTable(filters);
-        updateCharts(filters);
-    });
+    // Charger KPI/graphes uniquement sur les pages équipements
+    if (document.getElementById('equipmentsTable') || document.getElementById('statusChart') || document.getElementById('timelineChart')) {
+        loadKPIs(filters).then(() => {
+            loadEquipmentsTable(filters);
+            updateCharts(filters);
+        });
+    }
     
     // Gestionnaire d'événements pour les filtres
     const filterInputs = document.querySelectorAll('.filter-input');

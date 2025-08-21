@@ -1,0 +1,292 @@
+_id,Site,Province,Region,SNRT_RS,Latitude,Longitude,Altitude,Category,TNT,FM,ConfigUser,CreationDate,Photo,control,Code,Fixe,Gsm,files,AM,Administration,FH,ST
+1,Abteh,TanTan,Guelmim-Oued Noun,Agadir,27.90268,-11.45013,96,M,true,true,h.zagrari,2025-01-24T11:55:32.502Z,sites/logo.png,true,,,0682092372,,false,false,false,false
+2,Aday,Guelmim,Guelmim-Oued Noun,Agadir,29.14805,-9.29888,707,P,true,true,h.zagrari,2024-12-03T11:00:32.381Z,,true,4446,,0660130381,,false,false,false,false
+3,Adrej,Sefrou,Fès-Meknès,Fès-Meknès,33.618333,-4.434553,985,P,true,true,m.benhmidou,2024-08-18T17:58:32.290Z,,false,4077,,0674908930,,false,false,false,false
+4,Afourar,Azilal,Beni Mellal-Khénifra,Casablanca,32.233611,-6.532222,449,P,true,true,l.elbouti,2024-08-18T18:00:12.111Z,,false,4047,,0674908903,,false,false,false,false
+5,Afra-ait-khalfoun,Zagora,Darâa-Tafilalet,Marrakech,30.710866,-6.256499,955,P,true,true,b.haddad,2024-08-18T18:01:02.892Z,,false,5000,,0674908908,,false,false,false,false
+6,Agadir Oufella,Agadir,Sous-Massa,Agadir,30.43163,-9.62556,187,G,true,true,h.aoufir,2024-08-18T18:01:21.405Z,,true,4771,,0657580259,,false,false,false,false
+7,Agdz,Zagora,Darâa-Tafilalet,Marrakech,30.694444,-6.445278,952,P,true,true,b.haddad,2024-08-18T18:01:55.734Z,,false,5000,,0674908908,,false,false,false,false
+8,Aghbala,Beni Mellal,Beni Mellal-Khénifra,Fès-Meknès,32.2753,-5.362,1133,P,true,true,m.benhmidou,2024-08-18T18:14:01.710Z,,false,4077,,0674908930,,false,false,false,false
+9,Aghbalou N'Kerdous,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.766302,-5.31757,1242,P,true,true,m.benhmidou,2024-08-18T18:14:36.329Z,,false,4077,,0674908930,,false,false,false,false
+10,Ahfir,Berkane,L'Oriental,Oujda,34.943611,-2.098333,259,P,true,false,a.lharchichi,2024-08-18T18:15:13.699Z,,false,,,0674908926,,false,false,false,false
+11,Ain Chair,Figuig,L'Oriental,Oujda,32.216539,-2.522703,983,P,true,true,h.zagrari,2025-01-15T14:07:33.074Z,,true,4062,,0674908921,,false,false,false,false
+12,Ain Chwater,Figuig,L'Oriental,Oujda,31.995278,-2.967778,827,P,true,true,h.zagrari,2025-01-15T14:07:36.586Z,,true,4062,,0674908921,,false,false,false,false
+13,Ain-chock,Casablanca,Grand Casablanca-Settat,Casablanca,33.536944,-7.582222,126,G,true,true,h.zagrari,2024-08-19T16:40:19.748Z,,true,4060,0674908880,0674908919,,false,true,false,false
+14,Ait Hani,Tinghire,Darâa-Tafilalet,Fès-Meknès,31.776642,-5.458109,1982,P,true,true,m.benhmidou,2024-08-18T18:17:31.490Z,,false,4077,,0674908930,,false,false,false,false
+15,Ait-boulli,Azilal,Beni Mellal-Khénifra,Casablanca,31.601389,-6.606944,1685,P,true,true,h.zagrari,2024-08-18T18:18:32.108Z,,false,,,,,false,false,false,false
+16,Ait-mhammed,Azilal,Beni Mellal-Khénifra,Casablanca,31.879444,-6.479722,1717,P,true,true,h.attahir,2024-08-18T18:18:53.942Z,,false,,4047,0674908903,,false,false,false,false
+17,Ait-ouaarda,Azilal,Beni Mellal-Khénifra,Casablanca,32.122778,-6.535278,1000,A,false,false,l.elbouti,2024-08-18T18:22:51.610Z,,false,,,0674908903,,false,false,false,false
+18,Ait-sedrat-soufla,Tinghire,Darâa-Tafilalet,Marrakech,31.492103,-5.953404,1671,P,true,true,b.haddad,2024-08-18T18:23:23.920Z,,false,5000,,0674908908,,false,false,false,false
+19,Ajdir,Taza,Fès-Meknès,Fès-Meknès,34.712925,-3.962972,1629,P,true,true,m.benhmidou,2024-08-18T18:24:03.088Z,,false,4077,,0674908930,,false,false,false,false
+20,Akka,Tata,Sous-Massa,Agadir,29.38837,-8.25144,530,P,true,true,b.mellouki,2024-08-18T18:24:24.412Z,,false,4068,0528802169,0674908927,,false,false,false,false
+21,Akka Ighan,Tata,Sous-Massa,Agadir,29.996389,-7.5275,787,P,true,true,b.mellouki,2024-08-18T18:24:42.671Z,,false,4068,0528802169,0674908927,,false,false,false,false
+22,Aknoul,Taza,Fès-Meknès,Fès-Meknès,34.651721,-3.868414,1121,P,true,true,h.zagrari,2025-01-07T12:03:57.502Z,,false,4077,,0674908930,,false,false,false,false
+23,El Menzel,Sefrou,Fès-Meknès,Fès-Meknès,33.841582,-4.551942,720,P,true,true,m.benhmidou,2024-07-04T12:27:53.964Z,,false,4077,,0674908930,,,,,
+24,Allougoum,Tata,Sous-Massa,Agadir,30.273333,-6.835,844,M,true,true,b.mellouki,2024-08-07T23:10:34.792Z,,false,4068,0528802169,0674908927,,,,,
+25,Alnif,Tinghire,Darâa-Tafilalet,Fès-Meknès,31.31635,-5.283893,1411,P,true,true,m.benhmidou,2024-07-04T11:45:53.561Z,,false,4077,,0674908930,,,,,
+26,Amellagou,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.996427,-5.002072,1332,P,true,true,m.benhmidou,2024-07-04T11:48:17.935Z,,false,4077,,0674908930,,,,,
+27,Amalenne,Tiznit,Sous-Massa,Agadir,29.753611,-8.966667,913,P,true,false,l.elbouti,2024-03-22T12:04:02.065Z,,false,,,,,,,,
+28,Amoguer,Midelt,Darâa-Tafilalet,Fès-Meknès,32.274642,-4.937482,1630,P,true,true,m.benhmidou,2024-07-04T11:50:20.559Z,,false,4077,,0674908930,,,,,
+29,Anefgou,Midelt,Beni Mellal-Khénifra,Fès-Meknès,32.286317,-5.398643,1980,P,true,true,h.zagrari,2024-08-24T17:34:49.940Z,,false,4077,,0674908930,,false,false,false,false
+30,Anemzi,Midelt,Beni Mellal-Khénifra,Fès-Meknès,32.323756,-5.267043,2350,P,true,true,h.zagrari,2024-08-24T17:35:15.285Z,,false,4077,,0674908930,,false,false,false,false
+31,Anzi,Tiznit,Sous-Massa,Agadir,29.659722,-9.385278,520,P,true,false,l.elbouti,2024-03-22T12:21:27.909Z,,false,,,,,,,,
+32,Aoufous,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.69104,-4.180849,905,P,true,true,m.benhmidou,2024-07-04T12:00:50.906Z,,false,4077,,0674908930,,,,,
+33,Aoulouz,Taroudant,Sous-Massa,Agadir,30.663333,-8.187222,689,P,true,true,a.atia,2024-08-01T16:41:14.825Z,,false,4075,,0674908934,,,,,
+34,Aourir,Agadir,Sous-Massa,Agadir,30.489167,-9.646944,280,P,true,true,l.elbouti,2024-03-25T14:35:46.280Z,,false,,,,,,,,
+35,Argana,Taroudant,Sous-Massa,Agadir,30.777204,-9.122353,1240,P,true,false,l.elbouti,2024-03-25T14:37:04.089Z,,false,,,,,,,,
+36,Assekal,Taroudant,Sous-Massa,Agadir,30.641111,-9.286111,1179,M,true,true,l.elbouti,2024-03-25T14:39:38.390Z,,false,,,,,,,,
+37,Assa,Assa-Zag,Guelmim-Oued Noun,Agadir,28.604167,-9.431944,338,M,true,true,h.zagrari,2025-01-08T10:47:16.462Z,,false,,,,,false,false,false,false
+38,Assoul,Tinghire,Darâa-Tafilalet,Fès-Meknès,31.950037,-5.207513,1647,P,true,true,m.benhmidou,2024-07-04T12:03:16.606Z,,false,4077,,0674908930,,,,,
+39,Azagar N'Irs,Taroudant,Sous-Massa,Agadir,30.304167,-8.243611,1182,P,true,true,l.elbouti,2024-03-25T14:43:25.516Z,,false,,,,,,,,
+40,Azilal (azlafen),Azilal,Beni Mellal-Khénifra,Casablanca,31.966111,-6.57,1372,P,true,false,l.elbouti,2024-07-05T11:34:06.424Z,,false,,,0674908903,,,,,
+41,Azougar,Ifrane,Fès-Meknès,Fès-Meknès,33.404868,-5.1034,2070,M,true,true,h.zagrari,2024-09-01T11:23:55.659Z,,true,4049,,0674908910,,false,false,false,false
+42,Azrou,Azrou,Fès-Meknès,Fès-Meknès,33.438938,-5.218903,1441,P,true,true,m.benhmidou,2024-07-04T12:08:42.109Z,,false,4077,,0674908930,,,,,
+43,Babet,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.010278,-4.196111,1226,P,true,true,h.zagrari,2024-08-18T17:27:38.903Z,,false,,,,,false,false,false,false
+44,Ben Yaccoub,Tata,Sous-Massa,Agadir,30.038056,-7.938611,1100,P,true,true,b.mellouki,2024-08-07T23:09:34.786Z,,false,4068,,0674908927,,,,,
+45,Beni Mellal,Beni Mellal,Beni Mellal-Khénifra,Casablanca,32.336111,-6.353056,534,P,true,false,l.elbouti,2024-07-05T11:35:09.574Z,,false,,,0674908903,,,,,
+47,Beni Guemil,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.037778,-4.356111,1069,P,true,true,h.zagrari,2024-08-18T17:28:14.933Z,,false,,,,,false,false,false,false
+48,Bni Oulid,Taounate,Fès-Meknès,Fès-Meknès,34.579229,-4.451345,586,P,true,true,m.benhmidou,2024-07-04T12:12:32.423Z,,false,4077,,0674908930,,,,,
+49,Bni Tajjit (jbel boudhar),Figuig,L'Oriental,Oujda,32.290833,-3.468889,1107,P,true,true,h.zagrari,2025-01-15T14:06:23.907Z,,true,4062,,0674908921,,false,false,false,false
+50,Bouanane,Figuig,L'Oriental,Oujda,32.0425,-3.05,865,P,true,true,h.zagrari,2025-01-15T14:07:39.947Z,,true,4062,,0674908921,,false,false,false,false
+51,Bouarfa,Figuig,L'Oriental,Oujda,32.574444,-1.9475,1680,M,true,true,h.zagrari,2025-01-15T14:07:43.074Z,,true,4062,,0674908921,,false,false,false,false
+52,Boudnib,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.948436,-3.605542,954,P,true,true,m.benhmidou,2024-07-04T12:14:43.935Z,,false,4077,,0674908930,,,,,
+53,Bouizakarne,Guelmim,Guelmim-Oued Noun,Agadir,29.176667,-9.709722,633,P,true,false,l.elbouti,2024-03-27T13:26:35.180Z,,false,,,,,,,,
+54,Boujdour,Boujdour,Laâyoune-Saguia El Hamra,Laâyoune,26.119613,-14.486916,29,G,true,true,a.aitbrahim,2024-07-09T18:53:29.797Z,,false,4255,,0660130175,,,,,
+55,Boukhouali,Taourirt,L'Oriental,Oujda,34.335556,-2.566667,1725,G,true,true,m.slimani,2024-07-05T09:49:50.859Z,,true,4063,0536698136,0674908922,,,,,
+56,Boukraa,Laâyoune,Laâyoune-Saguia El Hamra,Laâyoune,26.324227,-12.852376,223,P,true,true,a.aitbrahim,2024-07-09T18:57:23.823Z,,false,4255,,0660130175,,,,,
+57,Boulmane,Boulmane,Fès-Meknès,Fès-Meknès,33.368333,-4.729167,1715,P,true,true,m.benhmidou,2024-07-04T12:18:21.186Z,,false,4077,,0674908930,,,,,
+58,Boumalen-dades,Tinghire,Darâa-Tafilalet,Marrakech,31.368021,-5.986422,1580,P,true,true,b.haddad,2024-07-19T01:43:52.916Z,,false,5000,,0674908908,,,,,
+59,Boumia,Midelt,Darâa-Tafilalet,Fès-Meknès,32.721783,-5.106607,1520,P,true,true,m.benhmidou,2024-07-04T12:21:37.071Z,,false,4077,,0674908930,,,,,
+60,Bouzemlane,Taza,Fès-Meknès,Fès-Meknès,34.013329,-4.553335,432,P,true,true,m.benhmidou,2024-07-04T12:23:49.798Z,,false,4077,,0674908930,,,,,
+61,Bouzineb,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.811389,-4.050833,1684,P,true,true,h.zagrari,2024-08-18T17:29:15.341Z,,false,,,,,false,false,false,false
+62,Bzou,Azilal,Beni Mellal-Khénifra,Casablanca,32.071944,-7.046389,539,P,true,true,l.elbouti,2024-07-05T11:35:45.807Z,,false,,,0674908903,,,,,
+63,Cap Spartel,Tanger,Tanger-Tétouan-Al Hoceima,Tanger,35.787312,-5.905417,326,G,true,true,h.elhafid,2024-07-04T16:40:50.657Z,,false,,,,,,,,
+64,Chefchaouen(tanakob),Chefchaouen,Tanger-Tétouan-Al Hoceima,Tanger,35.10783,-5.338818,915,M,true,true,h.elhafid,2024-07-04T10:23:45.052Z,,false,,,,,,,,
+65,Dakhla,Dakhla,Dakhla-Oued Ed Dahab,Laâyoune,23.693517,-15.934612,7,G,true,true,a.aitbrahim,2024-07-09T19:10:35.029Z,,true,,,0711943727,,,,,
+66,Demnate,Azilal,Beni Mellal-Khénifra,Casablanca,31.758611,-7.010278,959,P,true,true,l.elbouti,2024-07-05T11:36:46.368Z,,false,,,0674908903,,,,,
+67,Dhar Mhrez,Fès,Fès-Meknès,Fès-Meknès,34.045833,-4.979444,425,P,true,false,h.zagrari,2024-08-24T17:35:56.166Z,,false,4077,,0674908930,,false,false,true,false
+68,El Hajiba,Ben Slimane,Grand Casablanca-Settat,Casablanca,33.573889,-7.079722,360,P,false,true,h.zagrari,2024-08-18T17:29:46.259Z,,false,,,,,false,false,true,false
+69,El-jadida ville,El Jadida,Grand Casablanca-Settat,Casablanca,33.238889,-8.516944,22,P,true,false,h.zagrari,2024-08-18T17:30:25.758Z,,true,,,,,false,false,false,false
+70,Leksiba,Beni Mellal,Beni Mellal-Khénifra,Casablanca,32.573611,-6.038056,1032,P,true,true,h.zagrari,2025-01-08T10:25:09.865Z,,false,,,0674908903,,false,false,false,false
+71,El-marsa,Laâyoune,Laâyoune-Saguia El Hamra,Laâyoune,27.09616,-13.408807,7,P,true,false,a.aitbrahim,2024-07-09T19:02:29.451Z,,false,4255,,0660130175,,,,,
+72,El-watea,TanTan,Guelmim-Oued Noun,Agadir,28.489167,-11.337222,27,P,true,true,h.zagrari,2025-01-24T11:57:13.246Z,,false,,,,,false,false,false,false
+73,Enjil,Boulmane,Fès-Meknès,Fès-Meknès,33.235278,-4.636389,1722,P,true,false,m.benhmidou,2024-07-04T12:31:11.152Z,,false,4077,,0674908930,,,,,
+74,Essaouira (AZLEF),Essaouira,Marrakech-Safi,Marrakech,31.492222,-9.733333,122,P,true,false,l.elbouti,2024-12-24T16:13:48.858Z,,false,5000,,0674908908,,false,false,false,false
+75,Fask,Guelmim,Guelmim-Oued Noun,Agadir,28.999722,-9.833333,350,P,true,false,l.elbouti,2024-03-28T14:03:10.789Z,,false,,,,,,,,
+76,Figuig,Figuig,L'Oriental,Oujda,32.133333,-1.262222,1134,M,true,true,h.zagrari,2024-10-04T12:47:06.572Z,,true,4079,,0674908938,,false,false,false,false
+77,Fogo,Sidi Ifni,Guelmim-Oued Noun,Agadir,29.203889,-10.021944,1219,G,true,true,l.elbouti,2024-03-28T14:34:01.078Z,,false,,,,,,,,
+78,Foum Lahcen,Tata,Sous-Massa,Agadir,29.013889,-8.879167,487,P,true,true,b.mellouki,2024-07-04T14:43:25.387Z,,false,4068,0528802169,0674908927,,,,,
+79,Foum Zguid,Tata,Sous-Massa,Agadir,30.089167,-6.873333,763,M,true,true,b.mellouki,2024-08-07T23:11:56.932Z,,false,4068,0528802169,0674908927,,,,,
+80,Fretissa,Boulmane,Fès-Meknès,Fès-Meknès,33.621667,-3.548333,734,P,true,false,m.benhmidou,2024-07-04T12:35:46.271Z,,false,4077,,0674908930,,,,,
+81,Goulmima,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.703213,-4.951386,1143,P,true,true,m.benhmidou,2024-07-04T12:37:45.220Z,,false,4077,,0674908930,,,,,
+82,Guelmime,Guelmim,Guelmim-Oued Noun,Agadir,29.006667,-10.024167,584,P,true,true,h.zagrari,2024-12-27T08:00:36.313Z,,false,,,,,false,false,true,false
+84,Had Msila,Taza,Fès-Meknès,Fès-Meknès,34.424722,-4.180556,539,P,true,false,m.benhmidou,2024-07-04T12:41:10.662Z,,false,4077,,0674908930,,,,,
+85,Had Tahala,Tiznit,Sous-Massa,Agadir,29.6375,-9.091111,870,P,true,true,l.elbouti,2024-03-29T13:11:37.572Z,,false,,,,,,,,
+86,Hafa Safa,Tétouan,Tanger-Tétouan-Al Hoceima,Tanger,35.484774,-5.358617,1220,G,true,true,b.maach,2024-07-11T09:41:55.346Z,,true,4064,,0674908923,,,,,
+88,Idaoutanane,Agadir,Sous-Massa,Agadir,30.675,-9.475278,1293,P,true,true,l.elbouti,2024-03-29T13:23:16.100Z,,false,,,,,,,,
+89,Ifrane Atlas Sghir,Guelmim,Guelmim-Oued Noun,Agadir,29.220833,-9.484722,838,P,true,false,l.elbouti,2024-03-29T13:27:31.237Z,,false,,,,,,,,
+90,Ighrem,Taroudant,Sous-Massa,Agadir,30.108333,-8.455278,1908,P,true,true,a.atia,2024-08-01T16:41:45.231Z,,false,4075,,0674908934,,,,,
+91,Imider,Tinghire,Darâa-Tafilalet,Marrakech,31.363308,-5.789436,1430,P,true,true,b.haddad,2024-07-18T22:22:19.234Z,,false,,,,,,,,
+92,Imilchil,Midelt,Darâa-Tafilalet,Fès-Meknès,32.152003,-5.630954,2149,P,true,true,m.benhmidou,2024-07-04T12:44:07.957Z,,false,4077,,0674908930,,,,,
+93,Imintanoute,Chichaoua,Marrakech-Safi,Marrakech,31.175701,-8.857722,950,P,true,true,b.haddad,2024-07-18T22:30:22.985Z,,false,,,,,,,,
+94,Imintlit,Essaouira,Marrakech-Safi,Marrakech,31.215344,-9.547811,546,P,true,false,b.haddad,2024-07-18T22:43:44.670Z,,false,,,,,,,,
+95,Imouzer Marmoucha,Boulmane,Fès-Meknès,Fès-Meknès,33.464971,-4.294698,1675,P,true,true,m.benhmidou,2024-07-04T12:46:16.845Z,,false,4077,,0674908930,,,,,
+96,Issafen,Tata,Sous-Massa,Agadir,29.898333,-8.529722,1307,P,true,true,b.mellouki,2024-07-04T14:44:57.988Z,,false,4068,0528802169,0674908927,,,,,
+97,Itzer,Midelt,Darâa-Tafilalet,Fès-Meknès,32.878333,-5.055,1669,P,true,false,m.benhmidou,2024-07-04T12:47:33.633Z,,false,4077,,0674908930,,,,,
+98,Izeft,Errachidia,Darâa-Tafilalet,Fès-Meknès,32.07724,-4.320303,1912,G,true,true,m.dissi,2024-07-18T11:12:14.469Z,,true,4077,,0674908930,,,,,
+99,Jbel dehdouh,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.910556,-4.608056,1840,P,true,true,h.zagrari,2024-08-18T17:34:34.355Z,,false,,,,,false,false,false,false
+100,Jbel-lahdid,Essaouira,Marrakech-Safi,Marrakech,31.732778,-9.453056,709,G,true,true,h.zagrari,2024-08-24T17:24:09.071Z,,true,4066,,0674908925,,false,false,true,false
+101,Jerada,Jerada,L'Oriental,Oujda,34.323333,-2.155,1049,P,true,false,h.zagrari,2024-10-04T12:51:24.840Z,,false,4063,,0674908922,,false,false,false,false
+102,Kaf El Ghar,Taza,Fès-Meknès,Fès-Meknès,34.536426,-4.275644,1120,P,true,true,m.benhmidou,2024-07-04T12:53:42.567Z,,false,4077,,0674908930,,,,,
+104,Kelaat-mgouna,Tinghire,Darâa-Tafilalet,Marrakech,31.237899,-6.04806187,1439,P,true,true,h.zagrari,2024-08-24T17:23:12.219Z,,false,,,,,false,false,false,false
+105,Ketama,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.914444,-4.574167,1322,P,true,false,h.zagrari,2024-08-18T17:35:04.204Z,,false,,,,,false,false,false,false
+106,Khénifra,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,32.980634,-5.704734,1402,P,true,true,h.zagrari,2025-01-08T10:24:56.710Z,,false,4077,,0674908930,,false,false,false,false
+107,Khouribga,Khouribga,Beni Mellal-Khénifra,Casablanca,32.890278,-6.912222,800,P,true,false,l.elbouti,2024-07-05T11:37:21.888Z,,false,4047,,0674908903,,,,,
+108,Ksar Sghir,Fahs Anjra,Tanger-Tétouan-Al Hoceima,Tanger,35.675495,-5.315703,169,P,true,true,h.elhafid,2024-07-04T11:35:14.171Z,,false,,,,,,,,
+109,Laâyoune,Laâyoune,Laâyoune-Saguia El Hamra,Laâyoune,27.153333,-13.195278,69,G,true,true,h.zagrari,2024-08-20T15:13:42.112Z,,true,4059,0528893359,0674908918,,false,true,true,true
+110,Lekbab,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,32.737168,-5.518869,1402,P,true,true,m.benhmidou,2024-07-04T13:00:55.111Z,,false,4077,,0674908930,,,,,
+111,Massa,Chtouka Ait Baha,Sous-Massa,Agadir,29.974722,-9.630833,57,P,true,true,l.elbouti,2024-04-01T14:51:09.161Z,,false,,,,,,,,
+112,M'diq,M'diq Fnideq,Tanger-Tétouan-Al Hoceima,Tanger,35.675495,-5.315703,122,P,true,true,h.elhafid,2024-07-04T11:34:21.702Z,,false,,,,,,,,
+113,Megrez,Oujda,L'Oriental,Oujda,34.730278,-2.072222,994,G,true,true,h.zagrari,2025-01-15T14:09:34.664Z,,false,,,0674908926,,false,false,false,false
+114,Mehdia,Kénitra,Rabat-Salé-Kénitra,Rabat,34.259444,-6.659722,70,M,true,true,l.elbouti,2024-12-24T15:18:35.305Z,,true,,,,,false,false,true,false
+115,Mhamid Oulad Hlal,Tata,Sous-Massa,Agadir,30.126667,-6.881944,839,P,true,true,b.mellouki,2024-07-04T15:00:02.182Z,,false,4068,0528802169,0674908927,,,,,
+116,Mhamid-ghizlane,Zagora,Darâa-Tafilalet,Marrakech,29.824813,-5.718598,554,P,true,false,b.haddad,2024-07-18T23:05:26.821Z,,false,,,,,,,,
+117,Midelt,Midelt,Darâa-Tafilalet,Fès-Meknès,32.69559,-4.757027,1499,P,true,true,m.benhmidou,2024-07-04T13:10:47.625Z,,false,4077,,0674908930,,,,,
+118,Mirleft,Sidi Ifni,Guelmim-Oued Noun,Agadir,29.562789,-10.04006,64,P,true,false,l.elbouti,2024-04-03T12:46:56.411Z,,false,,,,,,,,
+119,Missour,Boulmane,Fès-Meknès,Fès-Meknès,33.049404,-3.997473,918,P,true,true,m.benhmidou,2024-07-04T13:12:49.690Z,,false,4077,,0674908930,,,,,
+120,Mokrissat,Ouazzane,Tanger-Tétouan-Al Hoceima,Tanger,34.927488,-5.35094,568,P,true,true,h.elhafid,2024-07-04T11:38:23.948Z,,false,,,,,,,,
+121,Moulay Bouaza,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,33.230228,-6.196397,1056,P,true,true,m.benhmidou,2024-07-04T13:15:17.253Z,,false,4077,,0674908930,,,,,
+122,Moulay Driss Zrehoun,Meknès,Fès-Meknès,Fès-Meknès,34.054167,-5.520833,539,P,true,false,h.zagrari,2024-08-18T19:08:12.100Z,,false,4077,,0674908930,,false,false,false,false
+123,Mrirt,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,33.1725,-5.571944,1100,P,true,false,m.benhmidou,2024-07-04T13:21:55.390Z,,false,4077,,0674908930,,,,,
+124,M'Seid,TanTan,Guelmim-Oued Noun,Agadir,28.016111,-10.815556,95,P,true,true,h.zagrari,2025-01-24T11:57:20.740Z,,false,,,,,false,false,false,false
+125,Msemrir Oussikis,Tinghire,Darâa-Tafilalet,Marrakech,31.689294,-5.880454,2047,P,true,true,b.haddad,2024-07-18T23:28:22.859Z,,false,,,,,,,,
+126,Mzouda,Chichaoua,Marrakech-Safi,Marrakech,31.290333,-8.585714,631,P,true,false,b.haddad,2024-07-18T23:34:51.134Z,,false,,,,,,,,
+127,Nkoub,Zagora,Darâa-Tafilalet,Marrakech,30.861297,-5.841674,1041,P,true,true,b.haddad,2024-07-18T23:50:46.316Z,,false,,,,,,,,
+128,Oualidia,El Jadida,Grand Casablanca-Settat,Casablanca,32.733056,-9.035556,47,P,true,true,h.zagrari,2025-07-16T14:36:24.939Z,,false,,,,,false,false,false,false
+129,Ouaouizart,Azilal,Beni Mellal-Khénifra,Casablanca,32.161389,-6.351111,952,P,true,true,l.elbouti,2024-07-05T11:40:07.756Z,,false,,,,,,,,
+130,Ouaoumana,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,32.723156,-5.767043,1023,P,true,true,m.benhmidou,2024-07-04T13:24:15.446Z,,false,4077,,0674908930,,,,,
+131,Ouarzazate,Ouarzazate,Darâa-Tafilalet,Marrakech,30.878889,-6.892222,1283,G,true,true,b.haddad,2024-07-04T12:11:30.018Z,,true,4046,,0674908909,,,,,
+132,Ouazzane,Ouazzane,Tanger-Tétouan-Al Hoceima,Rabat,34.784444,-5.573611,587,P,true,true,h.zagrari,2025-01-30T21:18:45.585Z,,false,,,,,false,false,false,false
+133,Oued Ifrane,Ifrane,Fès-Meknès,Fès-Meknès,33.297641,-5.488539,913,P,true,true,m.benhmidou,2024-07-04T13:26:24.208Z,,false,4077,,0674908930,,,,,
+134,Oukaimeden,Al Haouz,Marrakech-Safi,Marrakech,31.208832,-7.86446,2758,G,true,true,h.zagrari,2024-09-06T13:07:41.143Z,,true,4057,0524319002,0674908916,,false,false,true,false
+135,Oulad Ali,Boulmane,Fès-Meknès,Fès-Meknès,33.461686,-3.696284,1400,P,true,true,m.benhmidou,2024-07-04T13:28:56.530Z,,false,4077,,0674908930,,,,,
+136,Oulad Brhil,Taroudant,Sous-Massa,Agadir,30.645,-8.466667,1025,P,true,false,l.elbouti,2024-04-04T13:29:46.674Z,,false,,,,,,,,
+137,Oulad-ghanem,El Jadida,Grand Casablanca-Settat,Casablanca,32.816111,-8.914167,89,P,true,false,h.zagrari,2024-08-18T17:36:02.314Z,,false,,,,,false,false,false,false
+139,Ouled-ayad,Beni Mellal,Beni Mellal-Khénifra,Casablanca,32.200556,-6.798056,448,P,true,true,l.elbouti,2024-07-05T11:40:55.218Z,,false,,,0674908903,,,,,
+140,Outat Lhaj,Boulmane,Fès-Meknès,Fès-Meknès,33.335063,-3.696284,784,P,true,true,m.benhmidou,2024-07-04T14:24:37.358Z,,false,4077,,0674908930,,,,,
+141,Palomas,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.217222,-3.939722,406,M,true,true,l.elbouti,2025-05-19T10:17:56.674Z,,false,,,,,false,false,false,false
+142,Ras-el-ain,Settat,Grand Casablanca-Settat,Casablanca,32.97967,-7.393638,494,P,true,false,a.asri,2024-07-18T11:20:30.325Z,,false,4765,,0657580253,,,,,
+143,Rich,Midelt,Darâa-Tafilalet,Fès-Meknès,32.260814,-4.504716,1328,P,true,true,m.benhmidou,2024-07-04T14:26:41.912Z,,false,4077,,0674908930,,,,,
+144,Romani,Khémissat,Rabat-Salé-Kénitra,Rabat,33.523333,-6.613611,447,P,true,true,h.zagrari,2025-01-30T21:19:32.985Z,,false,,,,,false,false,false,false
+145,Safi,Safi,Marrakech-Safi,Casablanca,32.337778,-9.275833,142,G,true,true,h.zagrari,2025-07-16T14:27:17.698Z,,true,4080,,0674908939,,false,false,false,false
+146,Saidia,Berkane,L'Oriental,Oujda,35.079722,-2.235833,4,P,true,false,a.lharchichi,2024-07-04T11:34:44.430Z,,false,,,0674908926,,,,,
+147,Sar Sar,Kénitra,Rabat-Salé-Kénitra,Rabat,34.884444,-5.821944,609,M,true,true,h.zagrari,2024-08-18T21:24:52.838Z,,false,,,,,false,false,true,false
+148,Sefrou,Sefrou,Fès-Meknès,Fès-Meknès,33.813595,-4.846487,1064,P,true,true,m.benhmidou,2024-07-04T14:43:54.528Z,,false,4077,,0674908930,,,,,
+149,Settat Ouled Said,Settat,Grand Casablanca-Settat,Casablanca,32.985,-7.679722,455,M,true,true,h.zagrari,2024-12-27T07:58:32.531Z,,true,4765,0657580260,0657580253,,false,false,true,false
+150,Sidi Abid,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.242222,-3.950556,151,P,true,true,l.elbouti,2025-05-19T10:18:39.947Z,,false,,,,,false,false,false,false
+151,Sidi Ifni,Sidi Ifni,Guelmim-Oued Noun,Agadir,29.371162,-10.165106,106,P,true,true,l.elbouti,2024-04-05T13:26:58.561Z,,false,,,,,,,,
+152,Sidi Ifni 2(jbel boulaalam),Sidi Ifni,Guelmim-Oued Noun,Agadir,29.37119,-10.16612,190,M,false,true,b.mellouki,2024-07-18T12:42:13.944Z,,false,,,,,,,,
+153,Sidi Moussa Ben Ali,Mohamadia,Grand Casablanca-Settat,Rabat,33.558889,-7.362222,135,P,true,false,l.elbouti,2024-04-05T13:45:39.190Z,,false,,,,,,,,
+154,Sidi Yahya Ousaad,Khénifra,Beni Mellal-Khénifra,Fès-Meknès,32.680075,-5.572452,1585,P,true,true,m.benhmidou,2024-07-04T14:46:13.950Z,,false,4077,,0674908930,,,,,
+155,Sidi-bounouara,El Jadida,Grand Casablanca-Settat,Casablanca,33.119167,-8.186944,244,G,true,true,m.mekkaoui,2024-07-19T11:46:49.547Z,,false,4078,,0674908931,,,,,
+156,Skhour Rhamna,Settat,Marrakech-Safi,Casablanca,32.471389,-7.889167,635,P,true,true,h.zagrari,2025-01-16T11:07:25.863Z,,true,4765,,0657580253,,false,false,true,false
+158,Souk Tnine,Khouribga,Beni Mellal-Khénifra,Casablanca,33.071667,-6.7025,911,P,true,true,l.elbouti,2024-07-05T11:48:33.171Z,,false,4047,,0674908903,,,,,
+159,Tadighoust,Errachidia,Darâa-Tafilalet,Fès-Meknès,31.809167,-4.958611,1132,P,true,false,m.benhmidou,2024-07-04T14:48:36.322Z,,false,4077,,0674908930,,,,,
+160,Tafraout,Tiznit,Sous-Massa,Agadir,29.617222,-8.943889,1680,P,true,true,l.elbouti,2024-04-08T12:35:47.296Z,,false,,,,,,,,
+161,Taghazoute,Agadir,Sous-Massa,Agadir,30.545556,-9.701111,170,M,true,true,l.elbouti,2024-04-08T12:40:13.904Z,,false,,,,,,,,
+162,Taghgigt,Guelmim,Guelmim-Oued Noun,Agadir,29.051111,-9.429444,570,P,true,false,l.elbouti,2024-04-08T12:45:22.068Z,,false,,,,,,,,
+163,Tagmoute,Tata,Sous-Massa,Agadir,29.966667,-8.250556,1071,P,true,true,b.mellouki,2024-07-04T14:52:41.006Z,,false,4068,0528802169,0674908927,,,,,
+164,Tagounite,Zagora,Darâa-Tafilalet,Marrakech,30.117156,-5.626813,994,P,true,true,b.haddad,2024-07-19T00:17:09.279Z,,false,,,,,,,,
+166,Taka Tissoufra,Midelt,Darâa-Tafilalet,Fès-Meknès,32.581652,-4.566623,2355,G,true,true,m.ismailtaibi,2024-07-18T11:08:59.415Z,,true,4029,,0674908887,,,,,
+167,Talat nyaacoub,Al Haouz,Marrakech-Safi,Marrakech,30.993949,-8.182148,1212,P,true,true,b.haddad,2024-07-19T00:26:53.358Z,,false,,,,,,,,
+168,Talambout,Chefchaouen,Tanger-Tétouan-Al Hoceima,Tanger,35.251192,-5.182278,750,P,true,true,h.elhafid,2024-07-04T11:41:21.202Z,,false,,,,,,,,
+169,Taliwine 1,Taroudant,Sous-Massa,Agadir,30.522222,-7.911389,1075,P,true,true,a.atia,2024-08-01T16:39:59.263Z,,false,4075,,0674908934,,,,,
+170,Taliwine 2,Taroudant,Sous-Massa,Agadir,30.512778,-7.850111,1503,P,true,false,a.atia,2024-08-01T16:40:38.138Z,,false,4075,,0674908934,,,,,
+172,Tamanar,Essaouira,Marrakech-Safi,Marrakech,31.166021,-9.659225,885,M,true,true,b.haddad,2024-07-19T00:42:31.175Z,,false,5000,,0674908908,,,,,
+173,Tamezmoute,Zagora,Darâa-Tafilalet,Marrakech,30.669444,-6.143333,874,P,true,true,b.haddad,2024-07-19T00:47:23.788Z,,false,,,,,,,,
+174,Tamri,Agadir,Sous-Massa,Agadir,30.696111,-9.816389,140,P,true,true,l.elbouti,2024-04-08T13:56:00.762Z,,false,,,,,,,,
+175,Tanalt,Chtouka Ait Baha,Sous-Massa,Agadir,29.779167,-9.169444,948,P,true,true,l.elbouti,2024-04-08T13:59:07.293Z,,false,,,,,,,,
+176,Tandrara,Figuig,L'Oriental,Oujda,33.040833,-2.0225,1668,P,true,true,h.zagrari,2025-01-15T14:12:42.409Z,,true,4062,,0674908921,,false,false,false,false
+177,Tanger ville  (Charf),Tanger,Tanger-Tétouan-Al Hoceima,Tanger,35.766115,-5.790016,89,P,true,true,h.elhafid,2024-08-06T10:27:43.649Z,,false,,,,,,,,
+179,TanTan ville,TanTan,Guelmim-Oued Noun,Agadir,28.429444,-11.104722,84,M,true,true,h.zagrari,2025-01-24T12:05:18.174Z,,false,,,,,false,false,false,false
+180,Taounate,Taounate,Fès-Meknès,Fès-Meknès,34.5536236,-4.634093,619,P,true,true,m.benhmidou,2024-07-04T14:59:28.290Z,,false,4077,,0674908930,,,,,
+181,Taourirt,Taourirt,L'Oriental,Oujda,34.421667,-2.893611,405,P,true,false,h.zagrari,2024-08-18T20:21:12.499Z,,false,4063,,0674908922,,false,false,false,false
+182,Tarfaya,Tarfaya,Laâyoune-Saguia El Hamra,Laâyoune,27.934996,-12.916372,12,M,true,true,h.zagrari,2025-01-31T13:57:54.915Z,,false,4255,,0660130175,,false,false,false,false
+183,Tata ville,Tata,Sous-Massa,Agadir,29.741667,-7.971944,705,M,true,true,b.mellouki,2024-07-21T23:36:38.352Z,,false,4068,0528802169,0674908927,,,,,
+184,Lkoucha,Taza,Fès-Meknès,Fès-Meknès,34.196557,-4.016188,664,P,true,true,m.benhmidou,2024-07-04T13:08:43.474Z,,true,4077,,0674908930,,,,,
+185,Tazarine,Zagora,Darâa-Tafilalet,Marrakech,30.783333,-5.568056,893,P,true,true,l.elbouti,2024-04-16T11:06:16.674Z,,false,,,,,,,,
+186,Tazekka,Taza,Fès-Meknès,Fès-Meknès,34.090955,-4.183012,1946,G,true,true,h.zagrari,2025-07-16T14:27:38.514Z,sites/img_tazekka.gif,true,4767,,0657580255,,false,false,true,false
+187,Tazemmourt,Taroudant,Sous-Massa,Agadir,30.390278,-8.815833,625,M,true,true,h.zagrari,2024-09-02T17:29:40.951Z,,false,4075,,0674908934,,false,false,false,false
+188,Tazerkounte,Azilal,Beni Mellal-Khénifra,Casablanca,32.165833,-6.4875,1700,G,true,true,h.zagrari,2025-01-08T10:26:27.525Z,,false,4047,,0674908903,,false,false,false,false
+189,Taznakht,Ouarzazate,Darâa-Tafilalet,Marrakech,30.571667,-7.198611,1418,P,true,true,b.haddad,2024-07-04T09:51:04.698Z,,false,,,,,,,,
+190,Tellite-Amtzguin,Tata,Sous-Massa,Agadir,30.329722,-7.12,1120,P,true,true,b.mellouki,2024-07-04T14:49:53.034Z,,false,4068,0528802169,0674908927,,,,,
+191,Tellite-dar-talleb,Tata,Sous-Massa,Agadir,30.292778,-7.094722,1100,P,true,true,b.mellouki,2024-07-04T14:46:26.693Z,,false,4068,0528802169,0674908927,,,,,
+192,Tellite-timguissin,Tata,Sous-Massa,Agadir,30.270278,-7.061944,953,P,true,true,b.mellouki,2024-07-04T14:51:59.489Z,,false,4068,0528802169,0674908927,,,,,
+193,Tétouan Studio,Tétouan,Tanger-Tétouan-Al Hoceima,Tanger,35.570197,-5.373372,87,P,true,true,h.elhafid,2024-07-04T11:46:43.147Z,,false,,,,,,,,
+194,Thar Es-Souk,Taounate,Fès-Meknès,Fès-Meknès,34.67272,-4.21571,949,P,true,true,m.benhmidou,2024-07-04T15:03:43.267Z,,false,4077,,0674908930,,,,,
+195,Tillouguite,Azilal,Beni Mellal-Khénifra,Casablanca,32.030833,-6.2125,1226,P,true,true,l.elbouti,2024-07-05T11:51:05.238Z,,false,,,0674908903,,,,,
+196,Tinghire,Tinghire,Darâa-Tafilalet,Marrakech,31.518056,-5.538333,1337,P,true,true,l.elbouti,2024-04-16T11:45:03.528Z,,false,,,,,,,,
+197,Tissint,Tata,Sous-Massa,Agadir,29.907415,-7.317674,570,P,true,true,b.mellouki,2024-07-09T18:19:55.694Z,,false,4068,0528802169,0674908927,,,,,
+198,Tizi Azza,Driouch,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.045095,-3.596547,45,P,true,true,h.zagrari,2024-08-18T18:57:46.251Z,,false,,,,,false,false,false,false
+199,Tizi El Khatab,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.913333,-4.398889,2095,P,true,true,h.zagrari,2025-07-16T14:35:31.276Z,,false,,,,,false,false,false,false
+200,Tizi Ouasli,Taza,Fès-Meknès,Al Hoceima,34.763056,-3.789444,1363,P,true,true,h.zagrari,2025-07-16T14:35:44.553Z,,false,,,,,false,false,false,false
+201,Tizi nesli,Beni Mellal,Beni Mellal-Khénifra,Casablanca,32.468611,-5.771944,1446,P,true,true,l.elbouti,2024-07-05T11:57:52.517Z,,false,,,0674908903,,,,,
+202,Tiznit,Tiznit,Sous-Massa,Agadir,29.685278,-9.73,259,P,true,true,l.elbouti,2024-04-19T10:36:28.489Z,,false,,,,,,,,
+203,Tlat lakhsas,Sidi Ifni,Guelmim-Oued Noun,Agadir,29.341715,-9.76462,1060,P,true,false,l.elbouti,2024-04-19T10:38:13.927Z,,false,,,,,,,,
+204,Torres,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.158611,-4.319167,170,P,true,true,h.zagrari,2024-08-18T18:58:37.898Z,,false,,,,,false,false,false,false
+205,Tounfite,Midelt,Darâa-Tafilalet,Fès-Meknès,32.471667,-5.243889,1926,P,true,false,m.benhmidou,2024-07-04T14:55:38.472Z,,false,4077,,0674908930,,,,,
+206,Touzarine,Driouch,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.912222,-3.779167,1175,P,true,true,h.zagrari,2025-07-16T14:35:57.708Z,,false,,,,,false,false,false,false
+207,Youssoufia,Youssoufia,Marrakech-Safi,Casablanca,32.241944,-8.5225,325,P,true,false,h.zagrari,2025-07-16T14:36:29.849Z,,true,4080,,0674908939,,false,false,false,false
+208,Zaer,Rabat,Rabat-Salé-Kénitra,Rabat,33.915556,-6.818333,154,G,true,true,h.zagrari,2025-01-30T15:07:22.112Z,,true,,,,,false,true,true,true
+209,Zag,Assa-Zag,Guelmim-Oued Noun,Agadir,28.027222,-9.291667,402,P,true,true,h.zagrari,2025-01-08T10:48:12.833Z,,false,,,,,false,false,false,false
+210,Zagora,Zagora,Darâa-Tafilalet,Marrakech,30.318614,-5.82027,960,M,true,true,b.haddad,2024-07-19T00:59:20.224Z,,false,,,,,,,,
+211,Zaio,Nador,L'Oriental,Al Hoceima,34.9675,-2.744722,763,G,true,true,h.zagrari,2025-07-18T19:01:52.802Z,,true,4076,,0674908929,,false,false,false,false
+212,Zaouiat Sidi Hamza,Midelt,Darâa-Tafilalet,Fès-Meknès,32.440221,-4.713013,1650,P,true,true,m.benhmidou,2024-07-04T15:07:34.780Z,,false,4077,,0674908930,,,,,
+213,Zaouite-cheikh,Beni Mellal,Beni Mellal-Khénifra,Casablanca,32.645833,-5.904722,785,P,true,true,l.elbouti,2024-07-05T11:52:45.247Z,,false,,,0674908903,,,,,
+214,Zerhoune,Meknès,Fès-Meknès,Fès-Meknès,34.028055,-5.482606,1118,G,true,true,h.zagrari,2024-08-24T17:42:46.647Z,sites/20240715_101935.jpg,true,4069,,0674908928,,false,false,true,false
+215,Rabat Siège,Rabat,Rabat-Salé-Kénitra,-,34.014467,-6.830303,50,A,false,false,h.zagrari,2025-01-08T12:35:45.757Z,,false,,,,,false,true,false,false
+216,Temara,Skhirate-Témara,Rabat-Salé-Kénitra,-,33.89777778,-6.92194444,0,A,false,false,h.zagrari,2024-08-24T16:41:52.127Z,,false,,,,,false,true,false,true
+217,Krimda,Larache,Tanger-Tétouan-Al Hoceima,Tanger,35.279098,-6.064505,201,P,false,true,h.elhafid,2024-07-04T11:29:30.324Z,,false,,,,,,,,
+219,Erfoud,Errachidia,Fès-Meknès,Fès-Meknès,31.433568,-4.21863,935,P,false,true,m.benhmidou,2024-07-04T12:34:45.597Z,,false,4077,,0674908930,,,,,
+220,Zalagh,Fès,Fès-Meknès,Fès-Meknès,34.105719,-4.967211,845,P,false,true,m.benhmidou,2024-07-04T15:05:29.051Z,,false,4077,,0674908930,,,,,
+221,Tiguelmamine,Midelt,Fès-Meknès,Fès-Meknès,33.031537,-5.041184,2347,M,false,true,m.ismailtaibi,2024-07-18T11:06:01.329Z,,false,4029,,0674908887,,,,,
+222,Ait Melloul,Agadir,Sous-Massa,-,30.33,-9.502778,80,A,false,false,h.zagrari,2024-08-19T16:17:59.550Z,,true,4065,0528241647,0674908924,,true,false,false,false
+223,Biougra,Chtouka Ait Baha,Sous-Massa,Agadir,0,0,0,A,false,false,h.zagrari,2024-08-18T17:17:00.073Z,,false,,,,,false,false,false,false
+224,Essmara,Smara,Laâyoune-Saguia El Hamra,Laâyoune,26.738546,-11.667329,199,G,true,true,a.aitbrahim,2024-07-04T14:25:25.344Z,,true,4660,,0657580264,,,,,
+225,Foum el ouad,Laâyoune,Laâyoune-Saguia El Hamra,Laâyoune,27.1024,-13.215,14,A,false,false,h.zagrari,2025-02-14T07:42:24.482Z,,true,4768,,0656993986,,true,false,false,false
+226,Oujda Radio,Oujda,L'Oriental,-,34.66318,-1.908088,0,A,false,false,h.zagrari,2024-08-18T20:07:25.535Z,sites/8e384c1e-e67c-4f25-9199-49d2795430ef-1_all_3593.jpg,true,,,,,true,false,false,false
+228,Sidi Bennour,Sidi Bennour,Grand Casablanca-Settat,-,32.725923,-8.292251,0,A,false,false,h.zagrari,2024-08-18T20:11:52.422Z,,true,,,,,true,false,false,false
+229,Akhfennir,Tarfaya,Laâyoune-Saguia El Hamra,Laâyoune,28.099215,-12.046253,24,M,true,true,h.zagrari,2025-04-30T09:28:34.325Z,sites/statiofm3kw61.jpeg,false,4255,,0660130175,,false,false,false,false
+232,Msemrir Boyborne,Tinghire,Darâa-Tafilalet,Marrakech,31.696447,-5.82453,2034,P,true,true,b.haddad,2024-07-18T23:21:30.309Z,,false,5000,,0674908908,,,,,
+233,km 21 ex V.O.A,Tanger,Tanger-Tétouan-Al Hoceima,-,35.645186,-5.914327,0,A,false,false,h.zagrari,2024-08-18T17:35:40.748Z,,false,,,,,false,false,false,false
+234,Mrirt El Gara,Khénifra,Fès-Meknès,Fès-Meknès,33.152165,-5.510767,1512,P,false,true,m.benhmidou,2024-07-04T15:18:40.370Z,,false,4077,,0674908930,,,,,
+235,Jbel Oussoud,Chichaoua,Marrakech-Safi,Marrakech,31.0380694,-8.9070027,2236,M,true,true,b.haddad,2024-07-18T22:46:29.154Z,,false,5000,,0674908908,,,,,
+236,Abteh (colline),TanTan,Guelmim-Oued Noun,Agadir,27.90306,-11.45529,0,G,false,true,h.zagrari,2025-01-24T11:56:38.736Z,,true,,,0682092372,,false,false,false,false
+237,Sebaa-Aioune,El Hajeb,Fès-Meknès,-,33.899763,-5.38259,0,A,false,false,a.elkholfi,2025-01-02T13:44:10.096Z,,true,4764,0535546002,0657580252,,true,false,false,false
+238,Azilal,Azilal,Beni Mellal-Khénifra,-,31.898598,-6.549524,1660,A,false,false,h.zagrari,2024-08-18T18:51:01.239Z,,true,,,0661460519,,true,false,false,false
+242,Sidi Bouatmane,Rhamna,Marrakech-Safi,Marrakech,31.873061,-7.961773,1070,A,false,false,h.zagrari,2024-08-24T17:25:34.804Z,,false,5000,,0674908908,,false,false,true,false
+243,Saada Marrakech,Al Haouz,Marrakech-Safi,Marrakech,31.630401,-8.076056,912,A,false,false,h.zagrari,2024-08-24T17:25:18.690Z,,false,5000,,0674908908,,false,true,true,false
+244,AM Ouarzazate,Ouarzazate,Darâa-Tafilalet,Marrakech,30.9008056,-6.918111,1133,A,false,false,h.zagrari,2024-08-24T17:23:48.102Z,,false,5000,,0674908908,,true,false,false,false
+245,imider 2,Tinghire,Darâa-Tafilalet,Marrakech,31.376146,-5.786372,1529,A,false,false,h.zagrari,2024-12-25T16:04:46.807Z,,false,,,,,false,false,false,false
+246,Reg Al Hoceima,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.23540120934844,-3.927332511682944,0,A,false,false,h.zagrari,2024-08-24T17:46:37.527Z,,false,,,,,false,true,false,false
+247,Iaazanen,Nador,Tanger-Tétouan-Al Hoceima,Al Hoceima,35.2525,-3.1192,178,P,true,true,h.zagrari,2024-08-18T17:34:09.080Z,,false,,,,,false,false,false,false
+249,Bni-bounsar,Al hoceima,Tanger-Tétouan-Al Hoceima,Al Hoceima,34.8436,-4.4228,1113,P,true,true,h.zagrari,2024-08-18T17:28:49.649Z,,false,,,,,false,false,false,false
+250,ERRACHIDIA,Errachidia,Darâa-Tafilalet,-,31.917907,-4.416632,1031,P,false,false,h.zagrari,2024-08-24T17:37:13.585Z,,false,,,,,false,false,false,true
+251,Talsint,Figuig,L'Oriental,Oujda,32.535296,-3.444144,0,P,true,true,h.zagrari,2025-01-15T14:08:05.577Z,,true,4062,,0674908921,,false,false,false,false
+253,Taghjijt,Guelmim,Sous-Massa,Agadir,29.05122,-9.42978,0,P,true,false,h.zagrari,2024-10-04T13:18:16.879Z,,false,4446,,0660130381,,false,false,false,false
+255,Reg Agadir,Agadir,Sous-Massa,,30.33,-9.502778,80,A,false,false,h.zagrari,2025-02-03T13:04:22.336Z,,false,,,,,false,true,false,false
+256,Reg Fès-Meknès,Meknès,L'Oriental,,33.899763,-5.38259,0,A,false,false,h.zagrari,2024-08-19T16:24:47.934Z,,false,,,,,false,true,false,false
+257,Reg Oujda,Oujda,L'Oriental,,34.66318,-1.908088,0,A,false,false,h.zagrari,2024-08-19T16:30:49.760Z,,false,,,,,false,true,false,false
+258,Guercif,Guelmim,L'Oriental,,34.223084,-3.35815,371,A,false,false,h.zagrari,2024-08-24T17:32:46.997Z,,false,,,,,false,false,true,false
+259,Khénichat,Sidi Kacem,Beni Mellal-Khénifra,,34.2727,-5.4144,59,A,false,false,h.zagrari,2025-01-08T10:25:02.641Z,,false,,,,,false,false,true,false
+260,Prefecture Khenifra,Khénifra,Beni Mellal-Khénifra,,32.939352,-5.665148,838,P,false,false,h.zagrari,2024-08-24T17:38:58.467Z,,false,,,,,false,false,false,true
+261,Prefecture Taza,Taza,Fès-Meknès,,34.205678,-4.014186,586,A,false,false,h.zagrari,2024-08-24T17:40:05.821Z,,false,,,,,false,false,false,true
+262,Studio Fès,Fès,Fès-Meknès,,34.044575,-4.998836,383,A,false,false,h.zagrari,2025-01-08T10:25:35.566Z,,false,,,,,false,false,false,true
+263,Studio Meknès,Meknès,Fès-Meknès,,33.904156,-5.557545,510,A,false,false,h.zagrari,2024-08-24T17:42:16.897Z,,false,,,,,false,false,false,true
+264,Reg. Laâyoune,Laâyoune,Laâyoune-Saguia El Hamra,,27.153333,-13.195278,69,A,false,false,,2024-08-30T11:10:18.078Z,,false,,,,,false,true,false,false
+265,Tizi N'Tasset,Taroudant,Sous-Massa,,30.87716,-8.39682,2411,A,false,false,h.zagrari,2025-01-07T07:35:13.574Z,,false,4446,,0660130381,,false,false,true,false
+266,Guelmime studio,Guelmim,Guelmim-Oued Noun,,28.9964,-10.05151,305,A,false,false,l.elbouti,2024-10-09T14:47:12.920Z,,false,4446,,0660130381,,false,false,false,false
+267,Tan Tan Aéroport,TanTan,Guelmim-Oued Noun,,28.44305,-11.15666,210,A,false,false,h.zagrari,2025-01-24T11:57:26.887Z,,false,4446,,0660130381,,false,false,false,false
+268,Hmidia,TanTan,Guelmim-Oued Noun,,28.51706,-11.12785,171,A,false,false,h.zagrari,2025-01-24T12:06:39.905Z,,false,4446,,0660130381,,false,false,false,false
+269,Magsem Brahim,TanTan,Guelmim-Oued Noun,,28.62031,-10.77777,360,A,false,false,l.elbouti,2024-10-09T15:03:14.251Z,,false,4446,,0660130381,,false,false,true,false
+270,Studio Radio Agadir,Agadir,Sous-Massa,,30.4217,-9.6013,24,A,false,false,l.elbouti,2024-10-09T15:07:05.327Z,,false,4446,,0660130381,,false,false,false,false
+271,Nouacer,Chtouka Ait Baha,Sous-Massa,,29.99411,-9.55329,134,P,false,false,l.elbouti,2024-10-09T15:09:47.226Z,,false,4446,,0660130381,,false,false,true,false
+272,Timoulay,Guelmim,Guelmim-Oued Noun,,29.16807,-9.57564,710,P,true,false,l.elbouti,2024-11-29T14:40:46.783Z,,false,4446,,0660130381,,false,false,false,false
+273,Tamanart,Tata,Sous-Massa,,29.16554,-8.95635,520,P,true,true,l.elbouti,2024-11-29T14:43:46.888Z,,false,4446,,0660130381,,false,false,false,false
+274,Ait Ouabeli,Tata,Sous-Massa,,29.24034,-8.54428,480,P,true,true,l.elbouti,2024-11-29T14:45:43.055Z,,false,4446,,0660130381,,false,false,false,false
+275,laatamna,Berkane,L'Oriental,,35.059041,-2.216735,0,P,true,false,l.elbouti,2024-12-24T15:51:54.573Z,,false,4067,,0674908926,,false,false,false,true
+276,Debdou,Taourirt,L'Oriental,,33.967984,-3.037797,0,P,true,false,h.zagrari,2025-01-08T10:23:25.528Z,,false,4067,,0674908926,,false,false,false,true
+277,Bouarfa (centre ville),Figuig,L'Oriental,,32.528352,-1.958632,1153,P,true,false,h.zagrari,2025-02-05T11:12:03.589Z,,false,,,,,false,false,false,false
+278,Bni Tajjit,Figuig,L'Oriental,,32.298514,-3.446798,1330,P,true,true,h.zagrari,2025-01-15T14:06:18.587Z,,false,,,,,false,false,false,false
+279,ST ouarzazate,Ouarzazate,Marrakech-Safi,,30.928206,-6.910836,1480,A,false,false,l.elbouti,2024-12-24T16:07:22.148Z,,false,5000,,0674908908,,false,false,false,true
+280,ST essaouira,Essaouira,Marrakech-Safi,,31.503353,-9.760383,68,A,false,false,l.elbouti,2024-12-24T16:06:46.151Z,,false,5000,,0674908908,,false,false,false,true
+281,ST marrakech gueliz,Marrakech,Marrakech-Safi,,31.635071,-8.013965,565,A,false,false,l.elbouti,2024-12-24T16:10:52.106Z,,false,5000,,0674908908,,false,false,false,true
+282,Studio Al-Hoceima,Al hoceima,Tanger-Tétouan-Al Hoceima,,35.23594,-3.925319,43,A,false,false,h.zagrari,2025-01-08T12:33:17.135Z,,false,,,,,false,false,true,true
+283,sidi allal tazi,Kénitra,Rabat-Salé-Kénitra,,34.525,-6.318,9,P,false,false,l.elbouti,2024-12-26T15:23:35.587Z,,false,,,0666278074,,false,false,true,false
+284,Akka Ighan 2,Tata,Sous-Massa,,30.00327,-7.53286,820,A,false,false,h.zagrari,2025-01-08T10:28:00.328Z,,false,,,,,false,false,false,false
+285,El Mehbes 1,Assa-Zag,Zone Militaire,,27.42229,-9.04973,472,A,false,false,h.zagrari,2025-01-08T10:45:54.688Z,,false,,,,,false,false,false,false
+286,Farcia,Assa-Zag,Zone Militaire,,27.26151,-9.4732,493,A,false,false,h.zagrari,2025-01-08T11:32:21.181Z,,false,,,,,false,false,false,false
+287,El Mehbes 2 AM,Assa-Zag,Zone Militaire,,27.68637,8.8715,474,A,false,false,h.zagrari,2025-01-08T11:33:24.929Z,,false,,,,,false,false,false,false
+288,Adrar Azougar,Tata,Zone Militaire,,29.05942,-8.53932,861,A,false,false,h.zagrari,2025-01-08T11:34:45.108Z,,false,,,,,false,false,false,false
+290,Ain ben mathar relais,Jerada,L'Oriental,,34.025562,-2.014633,0,A,false,false,h.zagrari,2025-01-12T14:21:59.433Z,,false,,,,,false,false,true,false
+291,Tandrara relais,Figuig,L'Oriental,,33.063381,-2.022449,0,A,false,false,h.zagrari,2025-01-15T14:12:27.113Z,,false,,,,,false,false,true,false
+292,Batma relais,Figuig,L'Oriental,,32.456421,-1.680596,0,A,false,false,h.zagrari,2025-01-12T14:18:34.150Z,,false,,,,,false,false,true,false
+293,Jaafri relais,Figuig,L'Oriental,,32.217783,-1.720501,0,A,false,false,h.zagrari,2025-01-12T14:18:59.009Z,,false,,,,,false,false,true,false
+294,Fouchel,Jerada,L'Oriental,,33.763168,-1.99329,0,A,false,false,h.zagrari,2025-01-12T14:19:19.815Z,,false,,,,,false,false,true,false
+295,M'ssici,Tinghire,Darâa-Tafilalet,,31.225139,-4.837817,868,A,false,false,h.zagrari,2025-01-09T08:33:36.913Z,,false,,,,,false,false,false,false
+296,Karrandou,Errachidia,Darâa-Tafilalet,,32.253838,-4.395687,1352,A,false,false,h.zagrari,2025-01-09T08:35:15.038Z,,false,,,,,false,false,false,false
+297,Bir gandouz,Dakhla,Zone Militaire,,21.600609,-16.464819,0,A,false,false,h.zagrari,2025-01-09T09:57:01.570Z,,false,,,,,false,false,false,false
+298,Beggari,Dakhla,Zone Militaire,,23.707362788347247,-14.067633918311532,0,A,false,false,h.zagrari,2025-01-09T09:58:51.883Z,,false,,,,,false,false,false,false
+299,Tichla,Aousred,Zone Militaire,,21.58232284345911,-14.971834007069667,0,A,false,false,h.zagrari,2025-01-09T10:03:38.280Z,,false,,,,,false,false,false,false
+300,Oum driga,Aousred,Zone Militaire,,24.112274395120714,-13.26957651397811,0,A,false,false,h.zagrari,2025-01-09T10:04:29.316Z,,false,,,,,false,false,false,false
+301,Jdiria,Smara,Zone Militaire,,27.246715,-10.416849,0,A,false,false,h.zagrari,2025-01-09T10:05:07.375Z,,false,,,,,false,false,false,false
+302,Gueltet zemmour,Smara,Zone Militaire,,25.14887,-12.368749,0,A,false,false,h.zagrari,2025-01-09T10:05:56.556Z,,false,,,,,false,false,false,false
+303,Amgala,Smara,Zone Militaire,,26.287637,-11.140308,0,A,false,false,h.zagrari,2025-01-09T10:06:33.288Z,,false,,,,,false,false,false,false
+304,Tarfaya Municipalité,Tarfaya,-,,0,0,0,A,false,false,h.zagrari,2025-01-31T14:19:04.308Z,,false,,,,,false,false,false,false
+305,Hansala,-,-,,0,0,0,A,false,false,h.zagrari,2025-01-31T14:09:58.680Z,,false,,,,,false,false,false,false
+306,Had gharbia,Tanger,Tanger-Tétouan-Al Hoceima,,35.51658,-5.93054,93,A,false,false,l.elbouti,2025-04-22T10:05:14.584Z,,false,,,,,false,false,false,false
+307,AM Roches Noires,Casablanca,Grand Casablanca-Settat,,33.5353,-7.5824,18,A,false,false,l.elbouti,2025-04-22T12:38:23.669Z,,true,,,,,false,false,false,false
+308,sidi ahmed ben rahal,Sidi Bennour,Grand Casablanca-Settat,,0,0,0,P,false,false,l.elbouti,2025-04-22T12:29:56.730Z,,false,,,,,false,false,false,false
+309,Anounfeg,Agadir,Sous-Massa,,30.45912,-9.56993,390,A,false,false,l.elbouti,2025-05-16T10:54:57.316Z,,false,4446,,0660130381,,false,false,false,false
+310,Taroudant,Agadir,Sous-Massa,,30.47573,-8.869906,242,P,false,true,l.elbouti,2025-06-24T13:45:18.841Z,,false,4446,,0660130381,,false,false,false,false
+311,Reg RABAT,Rabat,Rabat-Salé-Kénitra,,0,0,0,P,false,false,l.elbouti,2025-07-23T10:59:14.761Z,,false,,,,,false,true,false,false

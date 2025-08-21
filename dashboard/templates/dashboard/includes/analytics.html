@@ -37,50 +37,12 @@
     </div>
 </div>
 
-<!-- Carte de répartition géographique -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <h6 class="m-0 font-weight-bold">Répartition géographique</h6>
-            </div>
-            <div class="card-body">
-                <div id="map" style="height: 400px; width: 100%;">
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Chargement de la carte...</span>
-                        </div>
-                        <p class="mt-2">Chargement de la carte en cours...</p>
-                    </div>
-                </div>
-                <div class="table-responsive mt-3">
-                    <table class="table table-sm table-hover" id="locationTable">
-                        <thead>
-                            <tr>
-                                <th>Localisation</th>
-                                <th class="text-end">Nombre d'équipements</th>
-                                <th class="text-end">Valeur totale</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Les données seront chargées dynamiquement -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Scripts pour les graphiques -->
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
 
 <script>
 // Variables globales pour les graphiques
-let statusChart, evolutionChart, map, locationMarkers = [];
+let statusChart, evolutionChart;
 
 // Fonction pour formater les nombres
 function formatNumber(num) {
@@ -99,7 +61,10 @@ function updateTimestamp() {
         minute: '2-digit',
         second: '2-digit'
     };
-    document.getElementById('lastUpdated').textContent = now.toLocaleDateString('fr-FR', options);
+    const el = document.getElementById('lastUpdated');
+    if (el) {
+        el.textContent = now.toLocaleDateString('fr-FR', options);
+    }
 }
 
 // Fonction pour charger la répartition par statut
@@ -118,7 +83,9 @@ function loadStatusDistribution() {
 
 // Fonction pour mettre à jour le graphique de répartition
 function updateStatusChart(data) {
-    const ctx = document.getElementById('statusChart').getContext('2d');
+    const canvas = document.getElementById('statusChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
     
     // Couleurs pour chaque statut
     const backgroundColors = [
@@ -196,7 +163,9 @@ function loadEvolutionData(months = 12) {
 
 // Fonction pour mettre à jour le graphique d'évolution
 function updateEvolutionChart(data) {
-    const ctx = document.getElementById('evolutionChart').getContext('2d');
+    const canvas = document.getElementById('evolutionChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
     
     // Détruire le graphique existant s'il existe
     if (evolutionChart) {
@@ -236,83 +205,11 @@ function updateEvolutionChart(data) {
     });
 }
 
-// Fonction pour charger les données de localisation
-function loadLocationData() {
-    fetch('{% url "api-locations" %}')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateLocationMap(data.data);
-                updateLocationTable(data.data);
-            } else {
-                console.error('Erreur lors du chargement des données:', data.error);
-            }
-        })
-        .catch(error => console.error('Erreur:', error));
-}
-
-// Fonction pour mettre à jour la carte des localisations
-function updateLocationMap(locations) {
-    // Initialiser la carte si elle n'existe pas
-    if (!map) {
-        map = L.map('map').setView([46.2276, 2.2137], 5); // Centre sur la France par défaut
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-    } else {
-        // Supprimer les marqueurs existants
-        locationMarkers.forEach(marker => map.removeLayer(marker));
-        locationMarkers = [];
-    }
-    
-    // Ajouter un marqueur pour chaque localisation
-    locations.forEach(location => {
-        // Ici, vous pourriez utiliser un service de géocodage pour obtenir les coordonnées
-        // Pour l'instant, on utilise des coordonnées aléatoires en France
-        const lat = 46.0 + (Math.random() * 0.5);
-        const lng = -1.0 + (Math.random() * 5.0);
-        
-        const marker = L.marker([lat, lng])
-            .addTo(map)
-            .bindPopup(`
-                <b>${location.name}</b><br>
-                Équipements: ${formatNumber(location.count)}<br>
-                Valeur: ${formatNumber(location.total_value.toFixed(2))} €
-            `);
-            
-        locationMarkers.push(marker);
-    });
-    
-    // Ajuster la vue pour afficher tous les marqueurs
-    if (locations.length > 0) {
-        const group = new L.featureGroup(locationMarkers);
-        map.fitBounds(group.getBounds().pad(0.1));
-    }
-}
-
-// Fonction pour mettre à jour le tableau des localisations
-function updateLocationTable(locations) {
-    const tbody = document.querySelector('#locationTable tbody');
-    tbody.innerHTML = '';
-    
-    locations.forEach(location => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${location.name}</td>
-            <td class="text-end">${formatNumber(location.count)}</td>
-            <td class="text-end">${formatNumber(location.total_value.toFixed(2))} €</td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
 // Initialisation au chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
-    // Charger les données initiales
     loadStatusDistribution();
     loadEvolutionData(12);
-    loadLocationData();
-    
+
     // Gérer le changement de période pour l'évolution
     document.querySelectorAll('.time-range').forEach(item => {
         item.addEventListener('click', function(e) {
@@ -329,11 +226,10 @@ document.addEventListener('DOMContentLoaded', function() {
             loadEvolutionData(months);
         });
     });
-    
+
     // Actualiser les données toutes les 5 minutes
     setInterval(() => {
         loadStatusDistribution();
-        loadLocationData();
         
         // Recharger l'évolution uniquement si la période est de 12 mois
         const activePeriod = document.querySelector('.time-range.active');
