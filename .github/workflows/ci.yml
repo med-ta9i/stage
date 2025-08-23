@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare .env for CI
+        run: |
+          cat > .env << 'ENV'
+          DEBUG=False
+          SECRET_KEY=dummy_ci_secret_key
+          DB_NAME=dem_dashboard_ci
+          DB_HOST=localhost
+          DB_PORT=27017
+          ALLOWED_HOSTS=*
+          ENV
+
+      - name: Django system check
+        run: |
+          python manage.py check --deploy --fail-level WARNING || true
+          python manage.py check
+
+      - name: Run migrations (SQLite for Django admin)
+        run: |
+          python manage.py migrate --noinput
+
+      - name: Smoke test MongoDB connectivity
+        env:
+          DB_HOST: localhost
+          DB_PORT: 27017
+        run: |
+          python - <<'PY'
+          from dashboard.db import get_mongodb_connection
+          db = get_mongodb_connection()
+          db.command('ping')
+          print('Mongo ping OK, db:', db.name)
+          PY
+
+      - name: Run tests
+        run: |
+          python manage.py test --verbosity 2

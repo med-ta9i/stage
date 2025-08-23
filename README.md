@@ -10,13 +10,15 @@ Application web de suivi des équipements pour le magasin DEM, offrant une vue d
 - **Visualisations graphiques** des données (graphiques, tableaux, indicateurs)
 - **Gestion des statuts** des équipements (en stock, en service, maintenance, etc.)
 - **Suivi des coûts** et de la valeur du stock
-- **Recherche et export** des données
+- **Recherche et export** des données (CSV, Excel)
+- **Page Rapports** avec graphiques (répartition statuts, évolution, localisations)
+- **Administration Django** avec page « Statistiques équipements » réservée au staff
 
 ## Prérequis
 
 - Python 3.8 ou supérieur
 - MongoDB 4.4 ou supérieur
-- Node.js et npm (pour les dépendances frontend)
+- (Optionnel) Node.js et npm si vous souhaitez builder des assets frontend spécifiques
 
 ## Installation
 
@@ -29,9 +31,9 @@ Application web de suivi des équipements pour le magasin DEM, offrant une vue d
 2. **Créer et activer un environnement virtuel**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # Sur Linux/Mac
+   source venv/bin/activate  # Linux/Mac
    # OU
-   .\venv\Scripts\activate  # Sur Windows
+   .\venv\Scripts\activate  # Windows
    ```
 
 3. **Installer les dépendances Python**
@@ -41,143 +43,137 @@ Application web de suivi des équipements pour le magasin DEM, offrant une vue d
 
 4. **Configurer les variables d'environnement**
    Créez un fichier `.env` à la racine du projet avec les configurations suivantes :
-   ```
+   ```env
    DEBUG=True
-   SECRET_KEY=votre_secret_key_django
-   MONGODB_URI=mongodb://localhost:27017/dem_dashboard
+   SECRET_KEY=your_secure_django_secret
+   # Configuration MongoDB (utilisée via PyMongo pour les données métier)
+   DB_NAME=dem_dashboard
+   DB_HOST=localhost
+   DB_PORT=27017
    ```
 
-5. **Importer les données initiales** (si nécessaire)
+5. **Initialiser la base Django (auth/admin/sessions via SQLite)**
    ```bash
-   python manage.py import_data
+   python manage.py migrate
+   python manage.py createsuperuser
    ```
 
-6. **Démarrer le serveur de développement**
+6. **(Optionnel) Importer des données**
+   Des scripts d’import existent dans `scripts/`. Exemple :
+   ```bash
+   python scripts/import_data.py
+   ```
+
+7. **Démarrer le serveur de développement**
    ```bash
    python manage.py runserver
    ```
 
-7. **Accéder à l'application**
+8. **Accéder à l'application**
    - Interface principale : http://localhost:8000/
    - Interface d'administration : http://localhost:8000/admin/
-   - Documentation de l'API : http://localhost:8000/api/docs/
+   - Statistiques admin (staff) : http://localhost:8000/admin/equipment-stats/
+   - Documentation de l'API : http://localhost:8000/api/docs/ (Swagger) et http://localhost:8000/api/redoc/
+
+## Architecture et stockage des données
+
+- **Django (admin/auth/sessions)** : utilise SQLite (fichier `db.sqlite3`) pour les fonctionnalités internes du framework.
+- **Données métier (équipements, localisations, etc.)** : stockées dans **MongoDB** et accédées via **PyMongo** (pas d’ORM Django).
 
 ## Structure du projet
 
 ```
 dem_dashboard/
 ├── dashboard/                 # Application principale
-│   ├── migrations/           # Fichiers de migration (si utilisation de l'ORM)
 │   ├── static/               # Fichiers statiques (CSS, JS, images)
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── img/
 │   ├── templates/            # Templates HTML
-│   │   └── dashboard/
-│   ├── __init__.py
-│   ├── admin.py             # Configuration de l'interface d'administration
-│   ├── api.py               # Logique de l'API personnalisée
-│   ├── apps.py              # Configuration de l'application
-│   ├── db.py                # Connexion à MongoDB
-│   ├── urls.py              # URLs de l'application
-│   └── views.py             # Vues de l'application
+│   ├── admin.py              # Configuration de l'interface d'administration
+│   ├── api.py                # Logique d’accès aux données équipements
+│   ├── db.py                 # Connexion à MongoDB (PyMongo)
+│   ├── urls.py               # URLs de l'application
+│   └── views.py              # Vues (templates + API/exports)
 ├── dem_dashboard/            # Configuration du projet
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py          # Paramètres du projet
-│   ├── urls.py              # URLs du projet
-│   └── wsgi.py
-├── scripts/                  # Scripts utilitaires
-│   └── import_data.py       # Script d'import des données
-├── .env.example             # Exemple de fichier d'environnement
-├── .gitignore
+│   ├── settings.py           # Paramètres du projet
+│   └── urls.py               # URLs du projet
+├── scripts/                  # Scripts utilitaires (imports, maintenance)
 ├── manage.py
 ├── README.md
-└── requirements.txt         # Dépendances Python
+└── requirements.txt          # Dépendances Python
 ```
 
-## API Endpoints
+## API Endpoints (extraits)
 
-L'application expose une API REST accessible via les endpoints suivants :
+- `GET /api/equipments/` — Liste paginée des équipements avec filtres
+- `GET /api/equipments/export/csv/` — Export CSV avec filtres
+- `GET /api/equipments/export/excel/` — Export Excel avec filtres
+- Analytics:
+  - `GET /api/analytics/status-distribution/`
+  - `GET /api/analytics/evolution/`
+  - `GET /api/analytics/locations/`
 
-- `GET /api/equipments/` - Liste paginée des équipements avec filtres
-- `GET /api/equipments/<id>/` - Détails d'un équipement spécifique
-- `GET /api/equipments/<id>/<relation>/` - Relations d'un équipement (designations, families, etc.)
+### Filtres disponibles (liste non exhaustive)
 
-### Filtres disponibles
-
-- `model`: Filtre par modèle d'équipement
-- `status`: Filtre par statut (en stock, en service, maintenance, etc.)
-- `location`: Filtre par localisation
-- `creation_date_gte`: Date de création supérieure ou égale à (format YYYY-MM-DD)
-- `creation_date_lte`: Date de création inférieure ou égale à (format YYYY-MM-DD)
-
-### Exemple de requête
-
-```bash
-# Récupérer les équipements en service
-GET /api/equipments/?status=En%20service
-
-# Récupérer les équipements créés en 2023
-GET /api/equipments/?creation_date_gte=2023-01-01&creation_date_lte=2023-12-31
-```
+- `model`, `status`, `location`, `search`
+- `creation_date_gte` (YYYY-MM-DD)
+- `creation_date_lte` (YYYY-MM-DD)
 
 ## Développement
 
-### Structure des données
-
-#### Collection `equipments`
+### Exemple de document `equipment`
 ```javascript
 {
   "_id": ObjectId("..."),
-  "model": "Modèle de l'équipement",
-  "serial": "Numéro de série unique",
-  "barcode": "Code-barres",
+  "model": "...",
+  "serial": "...",
+  "barcode": "...",
   "status": "En stock | En service | Maintenance | Hors service",
-  "location": "Localisation physique",
-  "price": 999.99,
-  "purchase_date": ISODate("2023-01-01"),
-  "warranty_expiry": ISODate("2025-01-01"),
-  "notes": "Notes supplémentaires",
-  "created_at": ISODate("2023-01-01T00:00:00Z"),
+  "location": "...",
+  "purchase_value": 999.99,
+  "creation_date": ISODate("2023-01-01T00:00:00Z"),
   "updated_at": ISODate("2023-01-01T00:00:00Z")
 }
 ```
 
 ### Commandes utiles
 
-- **Lancer les tests**
+- **Tests**
   ```bash
   python manage.py test
   ```
-
 - **Créer un superutilisateur**
   ```bash
   python manage.py createsuperuser
   ```
-
-- **Collecter les fichiers statiques** (pour la production)
+- **Collecter les fichiers statiques** (prod)
   ```bash
   python manage.py collectstatic
   ```
 
+## Notes sur les exports
+
+- L’export Excel utilise `pandas`. Pour de meilleures performances/compatibilité, installez également `XlsxWriter` (ou `openpyxl`).
+  ```bash
+  pip install XlsxWriter
+  ```
+
 ## Déploiement
 
-Pour le déploiement en production, il est recommandé d'utiliser :
+Pour le déploiement en production :
 
 1. **Serveur WSGI** : Gunicorn ou uWSGI
 2. **Serveur Web** : Nginx ou Apache
 3. **Base de données** : MongoDB en réplication pour la haute disponibilité
 
-### Variables d'environnement de production
+### Variables d'environnement de production (exemple)
 
-```
+```env
 DEBUG=False
 SECRET_KEY=votre_secret_key_tres_long_et_securise
-MONGODB_URI=mongodb://utilisateur:motdepasse@serveur-mongodb:27017/dem_dashboard?authSource=admin
+DB_NAME=dem_dashboard
+DB_HOST=localhost
+DB_PORT=27017
 ALLOWED_HOSTS=.votredomaine.com,localhost,127.0.0.1
 ```
-
 
 ## Auteur
 
