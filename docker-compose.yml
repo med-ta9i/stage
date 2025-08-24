@@ -1,0 +1,41 @@
+services:
+  web:
+    build: .
+    container_name: dem_web
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      DB_HOST: mongodb
+      DB_PORT: 27017
+    volumes:
+      - .:/app
+    depends_on:
+      - mongodb
+      - init
+
+  init:
+    build: .
+    container_name: dem_init
+    env_file: .env
+    environment:
+      DB_HOST: mongodb
+      DB_PORT: 27017
+    volumes:
+      - .:/app
+    depends_on:
+      - mongodb
+    # Exécute les imports puis se termine (ne bloque pas le stack)
+    command: >
+      bash -c "python scripts/import_data.py || true; \
+               python scripts/import_locations.py || true"
+
+  mongodb:
+    image: mongo:6
+    container_name: dem_mongodb
+
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
