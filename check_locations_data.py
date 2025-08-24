@@ -15,7 +15,8 @@ def check_locations_data():
         
         # Lister toutes les collections
         collections = db.list_collection_names()
-        print(f"Collections disponibles : {collections}")
+        total_locations = len(collections)
+        print(f"Total de localisations: {total_locations}")
         
         # Vérifier la collection locations
         if 'locations' in collections:
@@ -43,7 +44,7 @@ def check_locations_data():
                 # Vérifier les services TNT et FM
                 tnt_count = db.locations.count_documents({'services.tnt': True})
                 fm_count = db.locations.count_documents({'services.fm': True})
-                print(f"\n=== Services ===")
+                print("\n=== Services ===")
                 print(f"Sites avec TNT: {tnt_count}")
                 print(f"Sites avec FM: {fm_count}")
                 
@@ -55,7 +56,8 @@ def check_locations_data():
         # Vérifier aussi la collection equipment pour comparaison
         if 'equipment' in collections:
             eq_count = db.equipment.count_documents({})
-            print(f"\n=== Pour comparaison ===")
+            print("\n=== Pour comparaison ===")
+            print("Vérification terminée.")
             print(f"Collection 'equipment' : {eq_count} documents")
             
     except ConnectionFailure as e:

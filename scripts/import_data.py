@@ -2,7 +2,6 @@ import os
 import sys
 import pandas as pd
 from datetime import datetime, timedelta
-import pytz
 from tqdm import tqdm
 
 # Ajouter le répertoire parent au chemin Python
@@ -229,7 +228,7 @@ def import_equipment(csv_path):
                 continue
                 
             # Garder le premier _id et marquer les autres pour suppression
-            keep_id = doc['dups'].pop(0)
+            doc['dups'].pop(0)
             
             # Mettre à jour les documents en double pour éviter les problèmes d'unicité
             # En ajoutant un suffixe unique aux codes-barres en double
@@ -241,7 +240,7 @@ def import_equipment(csv_path):
                 )
         
         # Afficher un résumé
-        print(f"\nRésumé de l'importation:")
+        print("\nRésumé de l'importation:")
         print(f"- Documents insérés: {inserted}")
         print(f"- Documents mis à jour: {updated}")
         print(f"- Erreurs: {errors}")
@@ -356,7 +355,7 @@ def main():
     
     # Vérifier la connexion à MongoDB
     try:
-        db = get_mongodb_connection()
+        get_mongodb_connection()
         print("Connexion à MongoDB établie avec succès!")
     except Exception as e:
         print(f"Erreur de connexion à MongoDB: {e}")

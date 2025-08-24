@@ -1,10 +1,7 @@
 from django.views import View
 from django.http import JsonResponse
-from django.db.models import Count, Sum, F
-from django.utils import timezone
 from datetime import datetime, timedelta
 from .api import get_mongodb_connection
-import json
 
 class EquipmentStatusDistributionView(View):
     """

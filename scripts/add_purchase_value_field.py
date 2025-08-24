@@ -7,7 +7,6 @@ import os
 import sys
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
-from bson.decimal128 import Decimal128
 import re
 
 # Ajouter le répertoire parent au chemin Python pour pouvoir importer les modules du projet

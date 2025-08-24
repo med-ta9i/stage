@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, Http404, HttpResponseRedirect
 from django.utils.http import http_date
 from rest_framework import status
 from rest_framework.response import Response
@@ -174,13 +174,13 @@ class EquipmentEditView(TemplateView):
             # Mise à jour d'un équipement existant
             success, response = update_equipment(equipment_id, data)
             success_message = "L'équipement a été mis à jour avec succès."
-            error_message = f"Une erreur est survenue lors de la mise à jour de l'équipement: {{error}}"
+            error_message = "Une erreur est survenue lors de la mise à jour de l'équipement: {error}"
             redirect_view = 'equipment-detail'
         else:
             # Création d'un nouvel équipement
             success, response = create_equipment(data)
             success_message = "L'équipement a été créé avec succès."
-            error_message = f"Une erreur est survenue lors de la création de l'équipement: {{error}}"
+            error_message = "Une erreur est survenue lors de la création de l'équipement: {error}"
             redirect_view = 'equipment-list'
         
         # Gérer la réponse
@@ -359,7 +359,6 @@ def serve_static_dev(request, path):
     """
     if settings.DEBUG:
         import os
-        from django.views.static import serve
         from django.http import HttpResponse, HttpResponseNotFound
         
         # Chemin vers le dossier static de l'application

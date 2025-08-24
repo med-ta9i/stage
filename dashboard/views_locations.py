@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, UpdateView, DeleteView
+from django.shortcuts import redirect
+from django.views.generic import TemplateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,8 +11,7 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from .api_locations import (
-    get_locations, get_location, get_location_by_site_id, 
-    create_location, update_location, delete_location,
+    get_locations, get_location, create_location, update_location, delete_location,
     get_locations_statistics, get_locations_for_map
 )
 

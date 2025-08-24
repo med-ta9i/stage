@@ -348,5 +348,5 @@ def get_locations_for_map():
         
         return map_data
         
-    except Exception as e:
+    except Exception:
         return []

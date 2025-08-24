@@ -7,8 +7,6 @@ import sys
 import django
 import csv
 from datetime import datetime
-import pymongo
-from pymongo import MongoClient
 
 # Configuration Django
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -142,7 +140,7 @@ def import_locations():
         print(f"Erreur lors de la lecture du fichier: {str(e)}")
         return
     
-    print(f"\n=== RÉSUMÉ DE L'IMPORT ===")
+    print("\n=== RÉSUMÉ DE L'IMPORT ===")
     print(f"Localisations importées: {imported_count}")
     print(f"Erreurs: {error_count}")
     print(f"Total traité: {imported_count + error_count}")
