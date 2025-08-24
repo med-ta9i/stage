@@ -15,8 +15,7 @@ def check_locations_data():
         
         # Lister toutes les collections
         collections = db.list_collection_names()
-        total_locations = len(collections)
-        print(f"Total de localisations: {total_locations}")
+        print(f"Collections disponibles : {collections}")
         
         # Vérifier la collection locations
         if 'locations' in collections:
@@ -57,7 +56,6 @@ def check_locations_data():
         if 'equipment' in collections:
             eq_count = db.equipment.count_documents({})
             print("\n=== Pour comparaison ===")
-            print("Vérification terminée.")
             print(f"Collection 'equipment' : {eq_count} documents")
             
     except ConnectionFailure as e:

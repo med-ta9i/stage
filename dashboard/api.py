@@ -103,7 +103,7 @@ def get_equipment(equipment_id):
                 doc[field] = doc[field].isoformat()
                 
         return doc
-    except Exception:
+    except:
         return None
 
 def get_equipment_relations(equipment_id, relation_type):
@@ -233,3 +233,5 @@ def delete_equipment(equipment_id):
             
     except Exception as e:
         return False, {'error': str(e)}
+    except:
+        return []

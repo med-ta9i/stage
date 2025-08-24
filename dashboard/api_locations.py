@@ -115,7 +115,7 @@ def get_location(location_id):
                 doc[field] = doc[field].isoformat()
                 
         return doc
-    except Exception:
+    except:
         return None
 
 def get_location_by_site_id(site_id):
@@ -139,7 +139,7 @@ def get_location_by_site_id(site_id):
                 doc[field] = doc[field].isoformat()
                 
         return doc
-    except Exception:
+    except:
         return None
 
 def create_location(location_data):
