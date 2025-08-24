@@ -37,7 +37,7 @@ def parse_date(date_str):
     try:
         # Format: 2025-01-24T11:55:32.502Z
         return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
-    except:
+    except Exception:
         return None
 
 def import_locations():

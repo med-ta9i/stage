@@ -209,7 +209,6 @@ def import_equipment(csv_path):
             {'$match': {
                 'barcode': {
                     '$exists': True,
-                    '$ne': None,
                     '$ne': '',
                     '$type': 'string'
                 }
